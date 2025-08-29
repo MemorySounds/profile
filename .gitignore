@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+
+# Sass cache
+.sass-cache/
+
+# Local Styles (github actions builds & eleventy copies it over on deployment)
+src/styles/css/*
+
+# Eleventy output
+_site/
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Compiled CSS source

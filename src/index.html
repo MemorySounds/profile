@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Sahakyan</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section id="hero">
+        {% include "sections/hero.html" %}
+        <!-- This will be replaced with the content from src/sections/hero.html -->
+    </section>
+    
+    <section id="about">
+        {% include "sections/about.html" %}
+        <!-- This will be replaced with the content from src/sections/about.html -->
+    </section>
+    
+    <section id="projects">
+        {% include "sections/projects.html" %}
+        <!-- This will be replaced with the content from src/sections/projects.html -->
+    </section>
+    
+    <section id="contact">
+        {% include "sections/contact.html" %}
+        <!-- This will be replaced with the content from src/sections/contact.html -->
+    </section>
+
+    <script src="scripts/smooth-scroll.js"></script>
+</body>
+</html>

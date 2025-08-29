@@ -1,0 +1,29 @@
+@use 'variables' as *;
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $nav-background-color; // Define this variable in _variables.scss
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+
+  & a {
+    color: $nav-link-color; // Define this variable in _variables.scss
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $nav-link-hover-color; // Define this variable in _variables.scss
+    }
+  }
+
+  & .active {
+    font-weight: bold;
+    color: $nav-link-active-color; // Define this variable in _variables.scss
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "profile",
+  "version": "1.0.0",
+  "description": "My freelance developer profile.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MemorySounds/profile.git"
+  },
+  "scripts": {
+    "build": "sass src/styles/scss/main.scss src/styles/css/main.css && eleventy",
+    "watch": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css & eleventy --watch"
+  },
+  "author": "Robert Sahakyan",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "sass": "^1.91.0"
+  }
+}
