@@ -1,38 +1,40 @@
 @use 'variables' as *;
 
 .hero {
-    background-image: url('../images/hero-background.jpg'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: $text-color;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin: 0;
+    font-size: 6rem;
+    line-height: 100px;
 }
 
 .hero p {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+    font-size: 1.2rem;
+    padding: 0 50px;
 }
 
-.hero .cta-button {
+.hero {
+  .cta-button {
     padding: 10px 20px;
-    background-color: var(--primary-color); /* Use a variable from _variables.scss */
-    color: white;
+    background-color: $primary-color;
+    color: $text-color;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-}
 
-.hero .cta-button:hover {
-    background-color: var(--secondary-color); /* Use a variable from _variables.scss */
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+
+  .scroll-down-indicator {
+    font-size: 2rem;
+  }
 }

@@ -1,0 +1,125 @@
+@use 'variables' as *;
+
+.projects {
+    h2 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .projects-wrapper { 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 28px;
+    }
+
+    .project { 
+        background: #18181b;
+        color: #f4f4f5;
+        border: 1.5px solid #23232a;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        width: 250px;
+        aspect-ratio: 1 / 1;
+        padding: 28px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &:hover {
+            background: #23232a; // Slightly lighter/different shade
+            color: #cb9821;      // Accent color for text (optional)
+            border-color: $primary-color;
+            cursor: pointer;     // Or use a custom cursor if you want
+
+            // Optional: change h3 and p color on hover
+            h3, p {
+                color: #cb9821; // Or another accent color
+            }
+        }
+
+        h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        p {
+            font-size: 0.98rem;
+            color: #bdbdbd;
+            flex: 1;
+        }
+        a {
+            color: $primary-color;
+            text-decoration: underline;
+            font-size: 0.97rem;
+            margin-top: 18px;
+            align-self: flex-start;
+        }
+    }
+
+    .project-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(24,24,27,0.96);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s;
+
+        &.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #18181b;
+            color: #f4f4f5;
+            width: 75vw;
+            height: 75vh;
+            padding: 48px 36px 32px 36px;
+            border: 1.5px solid #23232a;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+            border-radius: 0;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.7);
+            animation: growIn 0.35s cubic-bezier(.4,1.7,.7,1) forwards;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: #f4f4f5;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s;
+            &:hover {
+                color: $primary-color;
+            }
+        }
+     
+    }
+
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes growIn {
+        from { opacity: 0; transform: scale(0.5);}
+        to { opacity: 1; transform: scale(1);}
+    }
+}
+
+
+body.modal-open {
+    overflow: hidden;
+}

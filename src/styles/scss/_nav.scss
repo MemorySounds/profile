@@ -1,15 +1,16 @@
 @use 'variables' as *;
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $nav-background-color; // Define this variable in _variables.scss
-  padding: 1rem 2rem;
+nav {
   position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
+  left: 0;
+  padding: 1rem;
+  width: 150px;
+  z-index: 1;
+
+  & ul { 
+    display: flex;
+    flex-direction: column;
+  }
 
   & a {
     color: $nav-link-color; // Define this variable in _variables.scss
