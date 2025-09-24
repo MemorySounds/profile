@@ -1,58 +1,89 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 .contact {
-    h2 {
-        text-align: center;
-        font-weight: 600;
-        margin-bottom: 16px;
-        letter-spacing: 1px;
-    }
+  h2 {
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
 
-    form {
-        max-width: 500px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        padding: 32px 24px;
-        border-radius: 12px;
-    }
+  form {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px 24px;
+    border-radius: 12px;
+  }
 
-    input, textarea {
-        width: 100%;
-        padding: 12px 14px;
-        border: none;
-        font-weight: 300;
-        font-size: 1rem;
-        border-bottom: 1px solid $text-color;
-        background: transparent;
-        transition: border-color 0.2s;
-        outline: none;
-        resize: vertical;
-    }
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    font-weight: 300;
+    font-size: 1rem;
+    border-bottom: 1px solid $text-color;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: vertical;
+  }
 
-    input:focus,
-    textarea:focus {
-        border-color: $primary-color;
-    }
+  input:focus,
+  textarea:focus {
+    border-color: $accent-color;
+  }
 
-    button[type="submit"] {
-        padding: 12px 0;
-        background: $button-color;
-        color: #ffffff;
-        border: none;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
-        margin-top: 8px;
-    }
+  button[type="submit"] {
+    padding: 12px 0;
+    background: $button-color;
+    color: #ffffff;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
 
-    button[type="submit"]:hover {
-        background: $button-color-hover;
-    }
+  button[type="submit"]:hover {
+    background: $button-color-hover;
+  }
 
-    div {
-        display: flex;
-        flex-direction: column;
-    }
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input.show-error,
+  textarea.show-error {
+    border-bottom: 2px solid #e74c3c;
+    background: rgba(231, 76, 60, 0.04);
+  }
+
+  .error-message {
+    display: none;
+    color: #e74c3c;
+    font-size: 0.95rem;
+    margin-top: 4px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  input:invalid:focus + .error-message,
+  textarea:invalid:focus + .error-message {
+    display: block;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #bdbdbd;
+    opacity: 1;
+    font-weight: 300;
+  }
+  input:invalid,
+  textarea:invalid {
+    box-shadow: none;
+  }
 }

@@ -1,42 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Robert Sahakyan</title>
-    <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-    <nav>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Sora:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="">
+    <nav class="top-nav">
+      <a href="#hero" class="logo">
+        <span class="name-tag">ROBERT SAHAKYAN</span>
+        <span class="nav-circle logo-circle">
+          <svg width="13" height="13">
+            <circle
+              cx="6.5"
+              cy="6.5"
+              r="5"
+              stroke="#a05d5d"
+              stroke-width="1"
+              fill="none"
+            />
+            <circle
+              class="circle-fill"
+              cx="6.5"
+              cy="6.5"
+              r="5"
+              fill="#a05d5d"
+              opacity="0"
+            />
+          </svg>
+        </span>
+      </a>
+      <button class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div id="nav-links-wrapper">
         <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <li>
+            <a href="#about">
+              <span class="nav-circle">
+                <svg width="13" height="13">
+                  <circle
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    stroke="#a05d5d"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <circle
+                    class="circle-fill"
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    fill="#a05d5d"
+                    opacity="0"
+                  />
+                </svg>
+              </span>
+              <span>ABOUT</span>
+            </a>
+          </li>
+          <li>
+            <a href="#projects">
+              <span class="nav-circle">
+                <svg width="13" height="13">
+                  <circle
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    stroke="#a05d5d"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <circle
+                    class="circle-fill"
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    fill="#a05d5d"
+                    opacity="0"
+                  />
+                </svg>
+              </span>
+              <span>PROJECTS</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact">
+              <span class="nav-circle">
+                <svg width="13" height="13">
+                  <circle
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    stroke="#a05d5d"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <circle
+                    class="circle-fill"
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    fill="#a05d5d"
+                    opacity="0"
+                  />
+                </svg>
+              </span>
+              <span>CONTACT</span>
+            </a>
+          </li>
         </ul>
+      </div>
     </nav>
-     
-    <section id="hero">
-        {% include "sections/hero.html" %}
-        <!-- This will be replaced with the content from src/sections/hero.html -->
-    </section>
-    
-    <section id="about">
-        {% include "sections/about.html" %}
-        <!-- This will be replaced with the content from src/sections/about.html -->
-    </section>
-    
-    <section id="projects">
-        {% include "sections/projects.html" %}
-        <!-- This will be replaced with the content from src/sections/projects.html -->
-    </section>
-    
-    <section id="contact">
-        {% include "sections/contact.html" %}
-        <!-- This will be replaced with the content from src/sections/contact.html -->
-    </section>
+    <div class="mobile-menu">
+      <ul>
+        <li>
+          <a href="#hero">
+            <span>HELLO</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#about"
+            ><span>ABOUT</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg> </span
+          ></a>
+        </li>
+        <li>
+          <a href="#projects"
+            ><span>PROJECTS</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg> </span
+          ></a>
+        </li>
+        <li>
+          <a href="#contact"
+            ><span>CONTACT</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg> </span
+          ></a>
+        </li>
+      </ul>
+    </div>
+    <div class="main-scroll">
+      <main class="main-layout">
+        <section id="hero">
+          {% include "sections/hero.html" %}
+          <!-- This will be replaced with the content from src/sections/hero.html -->
+        </section>
+
+        <section id="about">
+          {% include "sections/about.html" %}
+          <!-- This will be replaced with the content from src/sections/about.html -->
+        </section>
+
+        <section id="projects">
+          {% include "sections/projects.html" %}
+          <!-- This will be replaced with the content from src/sections/projects.html -->
+        </section>
+
+        <section id="contact">
+          {% include "sections/contact.html" %}
+          <!-- This will be replaced with the content from src/sections/contact.html -->
+        </section>
+      </main>
+    </div>
+
+    <!-- <div class="vertical-scroll-line"></div> -->
 
     <script src="scripts/projects.js"></script>
     <script src="scripts/smooth-scroll.js"></script>
-</body>
+    <script src="scripts/contact-validation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  </body>
 </html>

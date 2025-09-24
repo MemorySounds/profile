@@ -1,28 +1,60 @@
-@use 'variables' as *;
+@use "variables" as *;
+
+.hero-content {
+  h2 {
+    font-size: 4rem;
+    line-height: 100px;
+    margin-bottom: 30px;
+  }
+}
+
+#hero .section-content {
+  flex-direction: row;
+}
 
 .hero {
+  color: $text-color;
+  gap: clamp(1rem, 5vw, 5rem);
+
+  .hero-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: $text-color;
-}
+    max-width: 350px;
 
-.hero h1 {
-    font-size: 6rem;
-    line-height: 100px;
-}
+    p:first-child {
+      margin-bottom: 25px;
+    }
+  }
 
-.hero p {
-    font-size: 1.2rem;
-    padding: 0 50px;
-}
+  .hero-image-wrapper {
+    position: relative;
+    display: inline-block;
 
-.hero {
+    img {
+      width: 100%;
+      max-width: 350px;
+      min-width: 300px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
+      background-repeat: repeat;
+      background-size: 400px 400px;
+    }
+  }
+
   .cta-button {
     padding: 10px 20px;
-    background-color: $primary-color;
+    background-color: $accent-color;
     color: $text-color;
     border: none;
     border-radius: 5px;
@@ -30,11 +62,39 @@
     text-decoration: none;
 
     &:hover {
-      background-color: $secondary-color;
+      background-color: $accent-color;
     }
   }
 
   .scroll-down-indicator {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    h2 {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #hero .section-content {
+    flex-direction: column;
+  }
+  .hero {
+    gap: 1rem;
+
+    h1 {
+      font-size: 3rem;
+    }
+    h2 {
+      margin: 0;
+      font-size: 3rem;
+    }
+    .hero-image-wrapper img {
+      max-width: 350px;
+    }
   }
 }

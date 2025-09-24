@@ -1,32 +1,41 @@
 <div class="section-content projects" id="projects">
-    <h2>SELECTED PROJECTS</h2>
-    <div class="projects-wrapper">
-        <div class="project">
-            <h3>Startin'Blox</h3>
-            <p>Contributing to an EU-commissioned Dataspaces project, focused on EDC-Connectors.</p>
-        </div>
-        <div class="project">
-            <h3>Give Your Best</h3>
-            <p>Enhancing features for their growing webshop platform.</p>
-        </div>
-         <div class="project">  
-            <h3>The Computer Firm (TCF)</h3>
-            <p>Developing web applications for managing academic articles/issues.</p>
-        </div>
-        <div class="project">
-            <h3>Carbon Co-op</h3>
-            <p>Building a data bridge integration for energy data.</p>
-        </div>
-        <div class="project">
-            <h3>Answer Digital</h3>
-            <p>Tech-Consultant for 3 years. </p>
-        </div>
+  <div class="title-wrapper">
+    <h2>Selected<br />works</h2>
+    <div class="empty-div"></div>
+  </div>
+  <div class="projects-wrapper">
+    <!-- Left info box -->
+    <div class="project-info" id="project-info">
+      <h3 id="project-title">STARTIN'BLOX</h3>
+      <p id="project-desc">
+        Contributing to an EU-commissioned Dataspaces project, focused on
+        EDC-Connectors.
+      </p>
+      <a href="#" id="read-more">Read more <span class="arrow">→</span></a>
     </div>
-    <!-- Add this inside your projects-section -->
-    <div class="project-modal" id="project-modal">
-        <div class="modal-content" id="modal-content">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <div class="modal-body" id="modal-body"></div>
-        </div>
+
+    <!-- SVG lines container -->
+    <svg id="connector-lines">
+      <path id="connector-path" stroke="#5d3136" stroke-width="1" fill="none" />
+    </svg>
+
+    <!-- Right project list -->
+    <div class="project-list">
+      <div class="project" data-project="0">STARTIN'BLOX</div>
+      <div class="project" data-project="1">GIVE YOUR BEST</div>
+      <div class="project" data-project="2">THE COMPUTER FIRM (TCF)</div>
+      <div class="project" data-project="3">CARBON CO-OP</div>
+      <div class="project" data-project="4">ANSWER DIGITAL</div>
     </div>
+  </div>
+
+  <div id="project-modal" class="project-modal">
+    <button id="modal-close" class="modal-close">&times;</button>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="modal-left"></div>
+        <div class="modal-right"></div>
+      </div>
+    </div>
+  </div>
 </div>

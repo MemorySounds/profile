@@ -1,16 +1,19 @@
 // This file contains variables for colors, fonts, and other reusable values to maintain consistency across styles.
 
 // Color variables
-$primary-color: #cb9821;
-$secondary-color: #2ecc71;
-$background-color: #f7f7f7;
+$primary-color: #5d3136;
+// $background-color: #f7f7f7;
+// $background-color: white;
+$background-color: #f9ecdf;
 $text-color: rgb(0, 0, 0);
+$color: #5d3136;
+$accent-color: #a05d5d;
 
 // Navigation specific variables
 $nav-background-color: #222831;
-$nav-link-color: #000000;
-$nav-link-hover-color: #cb9821;
-$nav-link-active-color: #ffbc21;
+$nav-link-color: #ffffff;
+$nav-link-hover-color: #d77480;
+$nav-link-active-color: #9e565e;
 $button-color: #000000;
 $button-color-hover: #ffbc21;
 
@@ -18,8 +21,8 @@ $button-color-hover: #ffbc21;
 $hero-background-color: $primary-color; // Example, adjust as needed
 
 // Font variables
-$font-family: 'Arial', sans-serif;
+$font-family: "Sora", "Arial", sans-serif;
 $font-size-base: 16px;
 $font-size-large: 24px;
-$font-size-headings: 64px;
+// $font-size-headings: 64px;
 $font-size-small: 14px;
