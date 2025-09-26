@@ -1,6 +1,12 @@
 @use "variables" as *;
 
+#contact h2 {
+  font-size: 4rem;
+}
 .contact {
+  .contact-label {
+    color: $color;
+  }
   h2 {
     text-align: center;
     margin-bottom: 16px;
@@ -8,6 +14,7 @@
   }
 
   form {
+    min-width: 400px;
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -19,15 +26,41 @@
   input,
   textarea {
     width: 100%;
-    padding: 12px 14px;
+    padding: 8px 10px;
     border: none;
     font-weight: 300;
-    font-size: 1rem;
-    border-bottom: 1px solid $text-color;
+    font-size: 0.9rem;
+    border: 1px solid $color;
     background: transparent;
     transition: border-color 0.2s;
     outline: none;
     resize: vertical;
+    caret-color: $color;
+  }
+
+  textarea {
+    min-height: 200px;
+    resize: vertical;
+
+    // Custom scrollbar styles (WebKit)
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #5d3136; // Theme accent color
+      border-radius: 6px;
+      border: 2px solid $background-color; // Padding effect
+      min-height: 40px;
+      transition: background 0.2s;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #7a474e; // Slightly lighter/darker on hover
+    }
+
+    // Firefox
+    scrollbar-width: thin;
+    scrollbar-color: #5d3136 transparent;
   }
 
   input:focus,
@@ -36,10 +69,12 @@
   }
 
   button[type="submit"] {
-    padding: 12px 0;
-    background: $button-color;
-    color: #ffffff;
-    border: none;
+    background: transparent;
+    color: $color;
+    border: 1px solid $color;
+    border-radius: 50%;
+    height: 5rem;
+    width: 100%;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -49,6 +84,7 @@
 
   button[type="submit"]:hover {
     background: $button-color-hover;
+    color: $text-color-light;
   }
 
   div {
@@ -58,7 +94,7 @@
 
   input.show-error,
   textarea.show-error {
-    border-bottom: 2px solid #e74c3c;
+    border: 1px solid #e74c3c;
     background: rgba(231, 76, 60, 0.04);
   }
 
@@ -78,12 +114,46 @@
 
   input::placeholder,
   textarea::placeholder {
-    color: #bdbdbd;
+    color: $text-color-medium;
     opacity: 1;
     font-weight: 300;
   }
   input:invalid,
   textarea:invalid {
     box-shadow: none;
+  }
+
+  input:-webkit-autofill,
+  textarea:-webkit-autofill {
+    background: transparent !important;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    color: $color !important;
+    font-weight: 300;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .contact-alternatives {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: $color;
+
+    .contact-icons {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    .contact-icon {
+      font-size: 1.6rem;
+      color: $color;
+      transition: color 0.2s;
+      text-decoration: none;
+
+      &:hover {
+        color: #5d3136;
+      }
+    }
   }
 }

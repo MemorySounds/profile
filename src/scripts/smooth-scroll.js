@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logo = document.querySelector(".top-nav .logo");
   const logoCircleFill = logo?.querySelector(".circle-fill");
   const navLinks = document.querySelectorAll(".top-nav ul li a");
-  const mainScroll = document.querySelector(".main-scroll");
+  const scrollContainer = document.body;
   const navCircleFills = Array.from(
     document.querySelectorAll(".top-nav ul li .circle-fill")
   );
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Scrollspy: fill active link's circle
-  (mainScroll || window).addEventListener("scroll", () => {
+  scrollContainer.addEventListener("scroll", () => {
     if (ignoreScroll) return;
     let found = false;
     document.querySelectorAll("section").forEach((section) => {
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initial state for scrollspy
-  setTimeout(() => window.dispatchEvent(new Event("scroll")), 100);
+  setTimeout(() => scrollContainer.dispatchEvent(new Event("scroll")), 100);
 
   // === HAMBURGER MENU ===
   const hamburger = document.querySelector(".hamburger");
@@ -139,4 +139,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // scrollbar
+  const scrollbar = document.getElementById("custom-scrollbar");
+  const thumb = document.getElementById("custom-scrollbar-thumb");
+
+  function updateThumb() {
+    if (!scrollContainer || !scrollbar || !thumb) return;
+    const scrollTop = scrollContainer.scrollTop;
+    const scrollHeight = scrollContainer.scrollHeight;
+    const clientHeight = scrollContainer.clientHeight;
+
+    const trackHeight = scrollbar.offsetHeight;
+    const thumbHeight = Math.max(
+      trackHeight * (clientHeight / scrollHeight),
+      40
+    );
+
+    const maxThumbTop = trackHeight - thumbHeight;
+    const percentScrolled = scrollTop / (scrollHeight - clientHeight);
+    const thumbTop = percentScrolled * maxThumbTop;
+
+    thumb.style.height = `${thumbHeight}px`;
+    thumb.style.top = `${thumbTop}px`;
+  }
+
+  scrollContainer.addEventListener("scroll", updateThumb);
+  window.addEventListener("resize", updateThumb);
+  updateThumb();
 });

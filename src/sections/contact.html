@@ -1,15 +1,56 @@
 <div class="section-content contact" id="contact">
-    <h2>GET IN TOUCH</h2>
-    <form action="https://formspree.io/f/mqadglyq" method="POST">
-        <div>
-            <input type="text" id="name" name="name" required placeholder="NAME*">
-        </div>
-        <div>
-            <input type="email" id="email" name="email" required placeholder="EMAIL*">
-        </div>
-        <div>
-            <textarea id="message" name="message" rows="4" required placeholder="HOW CAN I HELP YOU?"></textarea>
-        </div>
-        <button type="submit">SEND MESSAGE</button>
-    </form>
+  <h2 id="contact-header">Get in touch</h2>
+  <form
+    action="https://formspree.io/f/mqadglyq"
+    id="contact-form"
+    method="POST"
+  >
+    <div>
+      <span class="contact-label">NAME</span>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div>
+      <span class="contact-label">EMAIL</span>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        oninvalid="this.setCustomValidity('Please enter a valid email address.')"
+        oninput="this.setCustomValidity('')"
+        required
+      />
+    </div>
+    <div>
+      <span class="contact-label">MESSAGE</span>
+      <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit">SEND MESSAGE</button>
+  </form>
+  <div id="form-success" style="display: none">
+    <p>
+      Your message was sent successfully. I’ll get back to you as soon as
+      possible.
+    </p>
+  </div>
+  <div class="contact-alternatives">
+    <span>Alternatively, reach me via</span>
+    <div class="contact-icons">
+      <a
+        href="mailto:r.sahakayan1@gmail.com"
+        class="contact-icon"
+        aria-label="Email"
+      >
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/robert-sahakyan-5a7b87159/"
+        class="contact-icon"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+    </div>
+  </div>
 </div>
