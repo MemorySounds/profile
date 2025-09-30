@@ -2,6 +2,7 @@ const projectDetails = [
   {
     title: "Startin’Blox",
     website: "https://startinblox.com/",
+    date: "2024-2025",
     brief:
       "EU semantic web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
     sections: [
@@ -35,6 +36,7 @@ const projectDetails = [
   {
     title: "The Computer Firm (TCF)",
     website: "https://thecomputerfirm.com/en/",
+    date: "2024-2025",
     brief:
       "Collaborated on academic publishing platforms and health sector tools, including secure journal systems and note-taking apps.",
     sections: [
@@ -79,6 +81,7 @@ const projectDetails = [
   {
     title: "Give Your Best",
     website: "https://giveyourbest.uk/",
+    date: "2023-2025",
     brief:
       "Non-profit clothing platform enabling direct donations to refugees. Supported web platform growth and new features.",
     sections: [
@@ -109,6 +112,7 @@ const projectDetails = [
   {
     title: "Carbon Co-op",
     website: "https://carbon.coop/",
+    date: "2023",
     brief:
       "Built a Home Assistant integration to connect internal energy data APIs for a UK-based carbon reduction co-operative.",
     sections: [
@@ -137,6 +141,7 @@ const projectDetails = [
   {
     title: "Answer Digital",
     website: "https://answerdigital.com/",
+    date: "2019-2022",
     brief:
       "Consultant developer for health sector projects, including NHS data systems and mentoring junior developers in modern Java/Spring.",
     sections: [
@@ -284,13 +289,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function ModalSection({ title, content }) {
     return `
-    <section class="modal-section">
+    <div class="modal-section">
       <div class="section-header">
         <span class="section-title">${title}</span>
         <span class="section-line"></span>
       </div>
       <div class="modal-section-content">${content}</div>
-    </section>
+    </div>
   `;
   }
 
@@ -311,6 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return `
     <div class="modal-top"> 
+      <p>${projectDetails[idx].date}</p>
       <h2 class="modal-title">${projectDetails[idx].title}</h2>
       <p class="modal-brief">${projectDetails[idx].brief}</p>
       <a href="${projectDetails[idx].website}" id="official-link" class="official-link" target="_blank" rel="noopener noreferrer">Company Website</a>
@@ -320,6 +326,40 @@ document.addEventListener("DOMContentLoaded", () => {
       ${nextLink}
     </div>
   `;
+  }
+
+  function trapFocus(modal) {
+    const focusableSelectors = [
+      "a[href]",
+      "button:not([disabled])",
+      "textarea:not([disabled])",
+      "input:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ];
+    const focusableElements = modal.querySelectorAll(
+      focusableSelectors.join(",")
+    );
+    if (focusableElements.length === 0) return;
+
+    const first = focusableElements[0];
+    const last = focusableElements[focusableElements.length - 1];
+
+    modal.addEventListener("keydown", function (e) {
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+    first.focus();
   }
 
   function openModal(idx) {
@@ -335,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("");
     }
     modal.classList.add("active");
+    trapFocus(modal);
     document.body.classList.add("modal-open");
 
     // Add event listeners for prev/next links
