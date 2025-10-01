@@ -13,6 +13,9 @@ profile/
 │   │   └── css/          # Compiled main.css
 │   ├── scripts/
 │   │   └── smooth-scroll.js
+│   │   └── projects.js
+│   │   └── contact-validation.js
+│   │   └── main.js
 │   ├── sections/
 │   │   ├── hero.html
 │   │   ├── about.html
@@ -29,19 +32,23 @@ profile/
 ## Getting Started
 
 1. Install dependencies:
+
    ```
    npm install
    ```
 
 2. Build the site:
+
    ```
    npm run build
    ```
 
 3. Run locally:
+
    ```
    npx serve _site
    ```
+
    Open the provided local URL in your browser.
 
 4. For development (auto-rebuild on changes):
