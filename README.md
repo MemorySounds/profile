@@ -60,6 +60,7 @@ profile/
 
 - The site is automatically deployed to GitHub Pages using GitHub Actions.
 - Only the contents of the `_site` folder are published.
+- The deployment process builds & deploys it to the `gh-pages` branch.
 
 ## Notes
 
