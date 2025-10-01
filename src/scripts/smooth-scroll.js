@@ -1,6 +1,6 @@
 let ignoreScroll = false;
 
-document.addEventListener("DOMContentLoaded", () => {
+export function initSmoothScroll() {
   // === NAV CIRCLES & LOGO CIRCLE ===
   const logo = document.querySelector(".top-nav .logo");
   const logoCircleFill = logo?.querySelector(".circle-fill");
@@ -37,6 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const isActive = link.getAttribute("href") === `#${section.id}`;
           link.classList.toggle("active", isActive);
           fillCircle(mobileCircleFills[i], isActive);
+
+          const modal = document.getElementById("project-modal");
+          if (modal && modal.classList.contains("active")) {
+            modal.classList.remove("active");
+            document.body.classList.remove("modal-open");
+          }
         });
         // Logo: fill only on hero
         if (logoCircleFill) fillCircle(logoCircleFill, section.id === "hero");
@@ -70,6 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
   navLinks.forEach((link, i) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
+
+      // Close modal if open
+      const modal = document.getElementById("project-modal");
+      if (modal && modal.classList.contains("active")) {
+        modal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+      }
+
       ignoreScroll = true;
       navLinks.forEach((l, idx) => {
         l.classList.remove("active");
@@ -164,7 +178,19 @@ document.addEventListener("DOMContentLoaded", () => {
     thumb.style.top = `${thumbTop}px`;
   }
 
+  function hideScrollbar() {
+    if (window.innerWidth <= 767) {
+      if (scrollbar) scrollbar.style.display = "none";
+    } else {
+      if (scrollbar) scrollbar.style.display = "";
+    }
+  }
+
   scrollContainer.addEventListener("scroll", updateThumb);
-  window.addEventListener("resize", updateThumb);
+  window.addEventListener("resize", () => {
+    updateThumb();
+    hideScrollbar();
+  });
+  hideScrollbar();
   updateThumb();
-});
+}

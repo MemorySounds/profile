@@ -208,8 +208,9 @@
   left: 0;
   width: 100vw;
   height: calc(100vh - 64px);
+  height: calc(100dvh - 64px);
   background: $background-color;
-  z-index: 100000;
+  z-index: 1000;
   display: none;
   justify-content: center;
   align-items: center;
@@ -404,13 +405,115 @@ body.modal-open {
 }
 
 @media (max-width: 767px) {
+  .modal-section-content {
+    padding-left: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .section-header {
+    margin-top: 2rem;
+  }
+  .modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    background: #5d3136;
+    font-size: 1.7rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(93, 49, 54, 0.08);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.4, 1.7, 0.7, 1);
+    will-change: transform;
+  }
+
+  .modal-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    color: $text-color-light;
+    border-top: none;
+    background: $color;
+    gap: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 1.7, 0.7, 1);
+    will-change: transform;
+  }
+
+  .modal-nav-btn {
+    width: 50vw;
+    height: 45px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: $text-color-light;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .next-btn {
+    border-left: 1px solid $text-color-light;
+  }
+
+  .modal-footer .next-btn:only-child {
+    border-left: 1px solid $text-color-light;
+    margin-left: auto;
+    width: 50vw;
+  }
+
+  .modal-footer .prev-btn:only-child {
+    border-right: 1px solid $text-color-light;
+  }
+
+  .modal-mobile-top {
+    display: flex;
+    flex-direction: column;
+
+    .official-link {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  // transitions for modal btns
+  .modal-controls-hidden .modal-footer {
+    transform: translateY(100%);
+  }
+  .modal-controls-hidden #modal-close {
+    transform: translateX(200%);
+  }
+  // If you add the class directly to the elements:
+  .modal-footer.modal-controls-hidden {
+    transform: translateY(100%);
+  }
+  #modal-close.modal-controls-hidden {
+    transform: translateX(120%);
+  }
+
+  .modal-right {
+    padding: 1.5rem;
+
+    .modal-section-content {
+      margin: 0;
+    }
+  }
+
   .project-info {
     display: none !important;
   }
 
   .projects-heading {
-    align-self: center;
     margin-left: 0;
+    text-align: center;
   }
 
   .project-list {

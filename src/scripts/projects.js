@@ -221,8 +221,8 @@ const projectSummaries = [
   },
 ];
 
-// Drawing SVG paths
-document.addEventListener("DOMContentLoaded", () => {
+export function initProjects() {
+  // Drawing SVG paths
   const projectsWrapper = document.querySelector(".projects-wrapper");
   const infoBox = document.querySelector(".project-info");
   const connectorPath = document.getElementById("connector-path");
@@ -261,6 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
     connectorPath.setAttribute("stroke-width", isActive ? 1 : 0.5);
   }
 
+  // On click of the project
   projectItems.forEach((item, idx) => {
     item.addEventListener("click", () => {
       // Remove .active from all projects
@@ -271,6 +272,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update info box and connector line
       updateInfoBox(idx);
       drawConnector(idx, true);
+
+      // Only open modal on mobile screens
+      if (window.innerWidth <= 767) {
+        openModal(idx);
+      }
     });
   });
 
@@ -363,36 +369,120 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openModal(idx) {
-    currentModalProjectIdx = idx; // Track current modal project
-    const modalLeft = document.querySelector(".modal-left");
-    const modalRight = document.querySelector(".modal-right");
-    if (modalLeft) {
+    currentModalProjectIdx = idx;
+    let modalLeft = document.querySelector(".modal-left");
+    let modalRight = document.querySelector(".modal-right");
+    const isMobile = window.innerWidth <= 767;
+
+    if (isMobile) {
+      if (modalLeft) modalLeft.remove();
+      if (modalRight) {
+        const details = projectDetails[idx];
+        modalRight.innerHTML = `
+        <div class="modal-mobile-top">
+          <p class="modal-date">${details.date}</p>
+          <h2 class="modal-title">${details.title}</h2>
+          <a href="${
+            details.website
+          }" class="official-link link" target="_blank" rel="noopener noreferrer">Company Website</a>
+          <p class="modal-brief">${details.brief}</p>
+        </div>
+        ${details.sections.map((section) => ModalSection(section)).join("")}
+        <div class="modal-footer">
+          ${
+            idx > 0
+              ? `<button class="modal-nav-btn prev-btn">← Previous</button>`
+              : ""
+          }
+          ${
+            idx < projectDetails.length - 1
+              ? `<button class="modal-nav-btn next-btn">Next →</button>`
+              : ""
+          }
+        </div>
+      `;
+
+        // Scroll modal content to top
+        modalRight.scrollTop = 0;
+
+        // Add event listeners for next/prev buttons (mobile)
+        const prevBtn = modalRight.querySelector(".prev-btn");
+        const nextBtn = modalRight.querySelector(".next-btn");
+        if (prevBtn) {
+          prevBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal(idx - 1);
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal(idx + 1);
+          });
+        }
+      }
+
+      if (isMobile && modalRight) {
+        const modalFooter = modalRight.querySelector(".modal-footer");
+        const modalCloseBtn = document.getElementById("modal-close");
+
+        function toggleControls() {
+          if (modalFooter)
+            modalFooter.classList.toggle("modal-controls-hidden");
+          if (modalCloseBtn)
+            modalCloseBtn.classList.toggle("modal-controls-hidden");
+        }
+
+        // Remove previous listeners by replacing the element
+        // Attach a new listener each time modalRight is updated
+        modalRight.onclick = function (e) {
+          const target = e.target;
+          if (
+            target.classList.contains("modal-nav-btn") ||
+            target.classList.contains("modal-close")
+          ) {
+            return;
+          }
+          toggleControls();
+        };
+      }
+    } else {
+      if (!modalLeft) {
+        modalLeft = document.createElement("div");
+        modalLeft.className = "modal-left";
+        // Insert before modalRight
+        if (modalRight && modalRight.parentNode) {
+          modalRight.parentNode.insertBefore(modalLeft, modalRight);
+        }
+      }
+      // Now update modalLeft and modalRight as usual
       modalLeft.innerHTML = renderModalLeft(idx);
+      if (modalRight) {
+        modalRight.innerHTML = projectDetails[idx].sections
+          .map((section) => ModalSection(section))
+          .join("");
+      }
+
+      // Add event listeners for prev/next links (desktop)
+      const prevBtn = document.getElementById("prev-project");
+      const nextBtn = document.getElementById("next-project");
+      if (prevBtn) {
+        prevBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal(idx - 1);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal(idx + 1);
+        });
+      }
     }
-    if (modalRight) {
-      modalRight.innerHTML = projectDetails[idx].sections
-        .map((section) => ModalSection(section))
-        .join("");
-    }
+
     modal.classList.add("active");
     trapFocus(modal);
     document.body.classList.add("modal-open");
-
-    // Add event listeners for prev/next links
-    const prevBtn = document.getElementById("prev-project");
-    const nextBtn = document.getElementById("next-project");
-    if (prevBtn) {
-      prevBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        openModal(idx - 1);
-      });
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        openModal(idx + 1);
-      });
-    }
   }
 
   if (readMore) {
@@ -420,5 +510,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Redraw connector line on window resize
   window.addEventListener("resize", () => {
     drawConnector(currentProjectIdx, true);
+
+    // Responsive modal layout switch
+    if (modal.classList.contains("active")) {
+      openModal(currentModalProjectIdx);
+    }
   });
-});
+}
