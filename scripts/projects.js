@@ -29,7 +29,14 @@ const projectDetails = [
       },
       {
         title: "TECH",
-        content: `<p>Semantic Web · EDC Connector · Java <i class="fa-brands fa-java"></i> · Docker <i class="fa-brands fa-docker"></i> · Kubernetes</p>`,
+        content: [
+          "Semantic Web",
+          "EDC Connector",
+          "Java",
+          "Docker",
+          "Kubernetes",
+          "Open-Source",
+        ],
       },
     ],
   },
@@ -72,9 +79,16 @@ const projectDetails = [
       },
       {
         title: "TECH",
-        content: `
-        <p>React · Node.js · Express · MongoDB · Electron · AI integration</p>
-      `,
+        content: [
+          "React",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Electron",
+          "Ant-Design",
+          "CSS3",
+          "On-Device AI Features",
+        ],
       },
     ],
   },
@@ -105,7 +119,17 @@ const projectDetails = [
       },
       {
         title: "TECH",
-        content: `<p>React · Node.js · Express · MongoDB · Heroku</p>`,
+        content: `<p>React · Node.js · Express · MongoDB · Heroku · Ant-Design · Sass</p>`,
+        content: [
+          "React",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Heroku",
+          "Ant-Design",
+          "Sass",
+          "CSS3",
+        ],
       },
     ],
   },
@@ -135,6 +159,7 @@ const projectDetails = [
       {
         title: "TECH",
         content: `<p>Python · Home Assistant · Git</p>`,
+        content: ["Python", "Home Assistant", "Git"],
       },
     ],
   },
@@ -176,9 +201,16 @@ const projectDetails = [
       },
       {
         title: "TECH",
-        content: `
-        <p>React · Java · Spring Boot · SQL Server · Microservices · REST APIs · Docker</p>
-      `,
+        content: [
+          "React",
+          "Java",
+          "Spring Boot",
+          "SQL Server",
+          "Microservices",
+          "REST APIs",
+          "Docker",
+          "Elasticsearch",
+        ],
       },
       {
         title: "MENTORING (ANSWER ACADEMY)",
@@ -294,7 +326,20 @@ export function initProjects() {
   const readMore = document.getElementById("read-more");
 
   function ModalSection({ title, content }) {
-    return `
+    if (title === "TECH" && Array.isArray(content)) {
+      return `
+      <div class="modal-section">
+        <div class="section-header">
+          <span class="section-title">${title}</span>
+          <span class="section-line"></span>
+        </div>
+        <div class="modal-section-content tech-list">
+          ${content.map((tech) => `<span>${tech}</span>`).join("")}
+        </div>
+      </div>
+    `;
+    } else {
+      return `
     <div class="modal-section">
       <div class="section-header">
         <span class="section-title">${title}</span>
@@ -303,6 +348,7 @@ export function initProjects() {
       <div class="modal-section-content">${content}</div>
     </div>
   `;
+    }
   }
 
   function renderModalLeft(idx) {

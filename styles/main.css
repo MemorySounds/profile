@@ -19,27 +19,22 @@ a:focus-visible {
   border-radius: 6px;
 }
 
-html,
-body {
+html {
   height: 100vh;
   height: 100dvh;
   width: 100vw;
+}
+
+html,
+body {
   overflow-y: auto;
   background: transparent;
 }
 @media (min-width: 768px) {
-  html,
-  body {
-    scrollbar-width: none;
-  }
   html::-webkit-scrollbar,
   body::-webkit-scrollbar {
     display: none;
   }
-}
-
-body.menu-open {
-  overflow: hidden;
 }
 
 body {
@@ -271,14 +266,16 @@ h2 {
     align-items: center;
     justify-content: center;
     background: rgba(249, 236, 223, 0.98);
-    z-index: 1100;
-    transform: translateY(-100%);
+    z-index: 99;
+    transform: scaleY(0);
+    transform-origin: top;
     visibility: hidden;
-    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0s linear 0.5s;
   }
   .mobile-menu.open {
     visibility: visible;
-    transform: translateY(0);
+    transform: scaleY(1);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0s;
   }
   .mobile-menu::before {
     content: "";
@@ -333,9 +330,6 @@ h2 {
   .mobile-menu a:hover {
     color: #222;
   }
-  .mobile-menu.open {
-    transform: translateX(0);
-  }
   .mobile-menu ul li {
     opacity: 0;
     transform: translateY(30px);
@@ -346,16 +340,19 @@ h2 {
     transform: translateY(0);
   }
   .mobile-menu.open ul li:nth-child(1) {
-    transition-delay: 0.3s;
+    transition-delay: 0.2s;
   }
   .mobile-menu.open ul li:nth-child(2) {
-    transition-delay: 0.4s;
+    transition-delay: 0.3s;
   }
   .mobile-menu.open ul li:nth-child(3) {
-    transition-delay: 0.5s;
+    transition-delay: 0.35s;
   }
   .mobile-menu.open ul li:nth-child(4) {
-    transition-delay: 0.6s;
+    transition-delay: 0.4s;
+  }
+  .mobile-menu.open ul li:nth-child(5) {
+    transition-delay: 0.45s;
   }
 }
 .mobile-menu .nav-circle,
@@ -460,6 +457,9 @@ h2 {
 .about {
   text-align: justify;
 }
+.about .about-heading {
+  min-width: 250px;
+}
 .about .content-wrapper {
   display: flex;
   justify-content: center;
@@ -518,10 +518,14 @@ h2 {
   gap: clamp(2rem, 4.2vw, 5rem);
 }
 
+#projects .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .projects-heading {
-  align-self: flex-start;
   margin-bottom: 3rem;
-  margin-left: 12.5%;
 }
 
 .link, .modal-section-content a {
@@ -848,6 +852,38 @@ body.modal-open {
   background: #5d3136;
   margin-right: 2rem;
 }
+.modal-section .modal-section-content.tech-list span {
+  display: inline-block;
+  position: relative;
+  background: #f9ecdf;
+  color: #5d3136;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  margin-bottom: 0.3em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(93, 49, 54, 0.06);
+  border: 1px solid #c1b2b2;
+}
+.modal-section .modal-section-content.tech-list span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  border-radius: 6px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
+  background-repeat: repeat;
+  background-size: 40px 40px;
+  mix-blend-mode: multiply;
+}
+.modal-section .modal-section-content.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 0.5em;
+}
 .modal-section .modal-section-content {
   display: flex;
   flex-direction: column;
@@ -1136,7 +1172,7 @@ body.modal-open {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 75%;
+  width: 90%;
   border-bottom: 1px solid #000000;
 }
 .main-layout section:last-child::after {
@@ -1175,10 +1211,124 @@ body.modal-open {
   }
   .section-content {
     flex-direction: column;
+    padding: 4rem 0;
+  }
+  .section-content.hero {
+    padding-top: 6rem;
   }
   h2 {
     font-size: 2.5rem !important;
     margin: 0;
+  }
+}
+.skills-section {
+  margin-top: 2rem;
+}
+
+.skills-group {
+  margin-bottom: 2.2rem;
+}
+
+#skills .content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: clamp(2rem, 4.2vw, 5rem);
+}
+#skills .title-wrapper {
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#skills .title-wrapper .skills-title {
+  line-height: 3rem;
+  margin-top: 0.5rem;
+}
+#skills .content {
+  max-width: 400px;
+}
+
+.skills-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.skills-header .skills-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5d3136;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 1rem;
+  white-space: nowrap;
+}
+
+.skills-list span {
+  position: relative;
+  background: #f9ecdf;
+  color: #5d3136;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  margin-bottom: 0.3em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(93, 49, 54, 0.06);
+  border: 1px solid #c1b2b2;
+}
+.skills-list span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  border-radius: 6px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
+  background-repeat: repeat;
+  background-size: 40px 40px;
+  mix-blend-mode: multiply;
+}
+
+.skills-list span {
+  position: relative;
+  z-index: 1;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+@media (max-width: 767px) {
+  #skills .content-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 350px;
+  }
+  #skills .title-wrapper {
+    width: 100%;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  #skills .skills-section {
+    margin-top: 1.2rem;
+  }
+  #skills .skills-group {
+    margin-bottom: 1.5rem;
+  }
+  #skills .skills-header .skills-title {
+    font-size: 0.95rem;
+  }
+  #skills .skills-list {
+    font-size: 0.98rem;
+    line-height: 1.5;
   }
 }
 

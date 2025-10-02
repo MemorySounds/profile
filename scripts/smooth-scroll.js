@@ -5,7 +5,6 @@ export function initSmoothScroll() {
   const logo = document.querySelector(".top-nav .logo");
   const logoCircleFill = logo?.querySelector(".circle-fill");
   const navLinks = document.querySelectorAll(".top-nav ul li a");
-  const scrollContainer = document.body;
   const navCircleFills = Array.from(
     document.querySelectorAll(".top-nav ul li .circle-fill")
   );
@@ -20,7 +19,7 @@ export function initSmoothScroll() {
   }
 
   // Scrollspy: fill active link's circle
-  scrollContainer.addEventListener("scroll", () => {
+  window.addEventListener("scroll", () => {
     if (ignoreScroll) return;
     let found = false;
     document.querySelectorAll("section").forEach((section) => {
@@ -57,6 +56,15 @@ export function initSmoothScroll() {
       const heroSection = document.querySelector("#hero");
       if (heroSection) {
         heroSection.scrollIntoView({ behavior: "smooth" });
+      }
+      if (
+        mobileMenu &&
+        mobileMenu.classList.contains("open") &&
+        window.innerWidth <= 767
+      ) {
+        mobileMenu.classList.remove("open");
+        hamburger?.classList.remove("open");
+        document.body.classList.remove("menu-open");
       }
     });
   }
@@ -123,7 +131,7 @@ export function initSmoothScroll() {
   }
 
   // Initial state for scrollspy
-  setTimeout(() => scrollContainer.dispatchEvent(new Event("scroll")), 100);
+  setTimeout(() => window.dispatchEvent(new Event("scroll")), 100);
 
   // === HAMBURGER MENU ===
   const hamburger = document.querySelector(".hamburger");
@@ -138,7 +146,20 @@ export function initSmoothScroll() {
     });
 
     menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href");
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          let offset = 30;
+          console.log({ targetSection });
+          if (targetSection.id === "contact") {
+            offset = 0;
+          }
+          const top =
+            targetSection.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
         document.body.classList.remove("menu-open");
@@ -159,10 +180,10 @@ export function initSmoothScroll() {
   const thumb = document.getElementById("custom-scrollbar-thumb");
 
   function updateThumb() {
-    if (!scrollContainer || !scrollbar || !thumb) return;
-    const scrollTop = scrollContainer.scrollTop;
-    const scrollHeight = scrollContainer.scrollHeight;
-    const clientHeight = scrollContainer.clientHeight;
+    if (!scrollbar || !thumb) return;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
 
     const trackHeight = scrollbar.offsetHeight;
     const thumbHeight = Math.max(
@@ -186,7 +207,7 @@ export function initSmoothScroll() {
     }
   }
 
-  scrollContainer.addEventListener("scroll", updateThumb);
+  window.addEventListener("scroll", updateThumb);
   window.addEventListener("resize", () => {
     updateThumb();
     hideScrollbar();

@@ -70,6 +70,31 @@
             </a>
           </li>
           <li>
+            <a href="#skills">
+              <span class="nav-circle">
+                <svg width="13" height="13">
+                  <circle
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    stroke="#a05d5d"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <circle
+                    class="circle-fill"
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    fill="#a05d5d"
+                    opacity="0"
+                  />
+                </svg>
+              </span>
+              <span>SKILLS</span>
+            </a>
+          </li>
+          <li>
             <a href="#projects">
               <span class="nav-circle">
                 <svg width="13" height="13">
@@ -174,6 +199,31 @@
           ></a>
         </li>
         <li>
+          <a href="#skills">
+            <span>SKILLS</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg>
+            </span>
+          </a>
+        </li>
+        <li>
           <a href="#projects"
             ><span>PROJECTS</span>
             <span class="nav-circle mobile-circle">
@@ -252,7 +302,7 @@
       <section id="about">
         <div class="section-content about">
   <div class="content-wrapper">
-    <h2>About me</h2>
+    <h2 class="about-heading">About me</h2>
     <div class="content">
       <p>
         After graduating in 2019 from
@@ -301,46 +351,155 @@
         <!-- This will be replaced with the content from src/sections/about.html -->
       </section>
 
+      <section id="skills">
+        <div class="section-content skills">
+  <div class="content-wrapper">
+    <div class="title-wrapper">
+      <h2 class="skills-title">Skills</h2>
+      <p class="skills-subtitle">(at a glance)</p>
+    </div>
+    <div class="content">
+      <p>
+        A cross-section of tools and technologies I’ve worked with in recent
+        years, ordered roughly by relevance and frequency. Not exhaustive — see
+        projects for applied examples.
+      </p>
+
+      <div class="skills-section">
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Languages</span>
+          </div>
+          <div class="skills-list">
+            <span>JavaScript (ES6+)</span>
+            <span>Python</span>
+            <span>Java</span>
+            <span>SQL</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Frontend</span>
+          </div>
+          <div class="skills-list">
+            <span>React</span>
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>Ant Design</span>
+            <span>Electron</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Backend</span>
+          </div>
+          <div class="skills-list">
+            <span>Node.js</span>
+            <span>Express.js</span>
+            <span>Spring Boot</span>
+            <span>REST APIs</span>
+            <span>Microservices</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Databases</span>
+          </div>
+          <div class="skills-list">
+            <span>MongoDB</span>
+            <span>SQL Server</span>
+            <span>MySQL</span>
+            <span>Elasticsearch</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">DevOps & Infra</span>
+          </div>
+          <div class="skills-list">
+            <span>Docker</span>
+            <span>Kubernetes</span>
+            <span>Git</span>
+            <span>GitHub Actions</span>
+            <span>Heroku</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Specialised</span>
+          </div>
+          <div class="skills-list">
+            <span>Semantic Web</span>
+            <span>Dataspace Connectors (EDC)</span>
+            <span>Home Assistant</span>
+            <span>AI-assisted features</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-header">
+            <span class="skills-title">Tools & Practices</span>
+          </div>
+          <div class="skills-list">
+            <span>Agile/Scrum</span>
+            <span>GitHub</span>
+            <span>Jira</span>
+            <span>Postman</span>
+            <span>VS Code</span>
+            <span>IntelliJ</span>
+            <span>Windows/Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- This will be replaced with the content from src/sections/skills.html -->
+      </section>
+
       <section id="projects">
         <div class="section-content projects" id="projects">
-  <h2 class="projects-heading">Selected works</h2>
+  <div class="content-wrapper">
+    <h2 class="projects-heading">Selected Works</h2>
+    <div class="projects-wrapper">
+      <!-- Left info box -->
+      <div class="project-info" id="project-info">
+        <h3 id="project-title">STARTIN'BLOX</h3>
+        <p id="project-desc">
+          Contributing to an EU-commissioned Dataspaces project, focused on
+          EDC-Connectors.
+        </p>
+        <a href="#" id="read-more">Read more <span class="arrow">→</span></a>
+      </div>
 
-  <div class="title-wrapper">
-    <!-- <div class="empty-div"></div> -->
-  </div>
-  <div class="projects-wrapper">
-    <!-- Left info box -->
-    <div class="project-info" id="project-info">
-      <h3 id="project-title">STARTIN'BLOX</h3>
-      <p id="project-desc">
-        Contributing to an EU-commissioned Dataspaces project, focused on
-        EDC-Connectors.
-      </p>
-      <a href="#" id="read-more">Read more <span class="arrow">→</span></a>
-    </div>
+      <!-- SVG lines container -->
+      <svg id="connector-lines">
+        <path
+          id="connector-path"
+          stroke="#5d3136"
+          stroke-width="1"
+          fill="none"
+        />
+      </svg>
 
-    <!-- SVG lines container -->
-    <svg id="connector-lines">
-      <path id="connector-path" stroke="#5d3136" stroke-width="1" fill="none" />
-    </svg>
-
-    <!-- Right project list -->
-    <div class="project-list">
-      <button class="project" type="button" data-project="0">
-        STARTIN'BLOX<span class="project-date">2024-2025</span>
-      </button>
-      <button class="project" type="button" data-project="1">
-        THE COMPUTER FIRM<span class="project-date">2024-2025</span>
-      </button>
-      <button class="project" type="button" data-project="2">
-        GIVE YOUR BEST<span class="project-date">2023-2025</span>
-      </button>
-      <button class="project" type="button" data-project="3">
-        CARBON CO-OP<span class="project-date">2023</span>
-      </button>
-      <button class="project" type="button" data-project="4">
-        ANSWER DIGITAL<span class="project-date">2019-2022</span>
-      </button>
+      <!-- Right project list -->
+      <div class="project-list">
+        <button class="project" type="button" data-project="0">
+          STARTIN'BLOX<span class="project-date">2024-2025</span>
+        </button>
+        <button class="project" type="button" data-project="1">
+          THE COMPUTER FIRM<span class="project-date">2024-2025</span>
+        </button>
+        <button class="project" type="button" data-project="2">
+          GIVE YOUR BEST<span class="project-date">2023-2025</span>
+        </button>
+        <button class="project" type="button" data-project="3">
+          CARBON CO-OP<span class="project-date">2023</span>
+        </button>
+        <button class="project" type="button" data-project="4">
+          ANSWER DIGITAL<span class="project-date">2019-2022</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -425,5 +584,6 @@
 
     <script type="module" src="scripts/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
   </body>
 </html>
