@@ -70,6 +70,31 @@
             </a>
           </li>
           <li>
+            <a href="#skills">
+              <span class="nav-circle">
+                <svg width="13" height="13">
+                  <circle
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    stroke="#a05d5d"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <circle
+                    class="circle-fill"
+                    cx="6.5"
+                    cy="6.5"
+                    r="5"
+                    fill="#a05d5d"
+                    opacity="0"
+                  />
+                </svg>
+              </span>
+              <span>SKILLS</span>
+            </a>
+          </li>
+          <li>
             <a href="#projects">
               <span class="nav-circle">
                 <svg width="13" height="13">
@@ -174,6 +199,31 @@
           ></a>
         </li>
         <li>
+          <a href="#skills">
+            <span>SKILLS</span>
+            <span class="nav-circle mobile-circle">
+              <svg width="13" height="13">
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  stroke="#a05d5d"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <circle
+                  class="circle-fill"
+                  cx="6.5"
+                  cy="6.5"
+                  r="5"
+                  fill="#a05d5d"
+                  opacity="0"
+                />
+              </svg>
+            </span>
+          </a>
+        </li>
+        <li>
           <a href="#projects"
             ><span>PROJECTS</span>
             <span class="nav-circle mobile-circle">
@@ -234,6 +284,11 @@
         <!-- This will be replaced with the content from src/sections/about.html -->
       </section>
 
+      <section id="skills">
+        {% include "sections/skills.html" %}
+        <!-- This will be replaced with the content from src/sections/skills.html -->
+      </section>
+
       <section id="projects">
         {% include "sections/projects.html" %}
         <!-- This will be replaced with the content from src/sections/projects.html -->
@@ -250,5 +305,6 @@
 
     <script type="module" src="scripts/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
   </body>
 </html>

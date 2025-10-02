@@ -7,6 +7,10 @@
 .about {
   text-align: justify;
 
+  .about-heading {
+    min-width: 250px;
+  }
+
   .content-wrapper {
     display: flex;
     justify-content: center;

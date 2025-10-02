@@ -1,0 +1,119 @@
+.skills-section {
+  margin-top: 2rem;
+}
+
+.skills-group {
+  margin-bottom: 2.2rem;
+}
+
+#skills {
+  .content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(2rem, 4.2vw, 5rem);
+  }
+
+  .title-wrapper {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .skills-title {
+      line-height: 3rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .content {
+    max-width: 400px;
+  }
+}
+
+.skills-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+
+  .skills-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #5d3136;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 1rem;
+    white-space: nowrap;
+  }
+}
+
+.skills-list span {
+  position: relative;
+  background: #f9ecdf;
+  color: #5d3136;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  margin-bottom: 0.3em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(93, 49, 54, 0.06);
+  border: 1px solid #c1b2b2;
+
+  // Add noise texture
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6; // Adjust for subtlety
+    border-radius: 6px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
+    background-repeat: repeat;
+    background-size: 40px 40px;
+    mix-blend-mode: multiply;
+  }
+}
+.skills-list span {
+  position: relative;
+  z-index: 1; // Ensure text is above texture
+}
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+@media (max-width: 767px) {
+  #skills {
+    .content-wrapper {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 350px;
+    }
+
+    .title-wrapper {
+      width: 100%;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .skills-section {
+      margin-top: 1.2rem;
+    }
+    .skills-group {
+      margin-bottom: 1.5rem;
+    }
+    .skills-header .skills-title {
+      font-size: 0.95rem;
+    }
+    .skills-list {
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+  }
+}

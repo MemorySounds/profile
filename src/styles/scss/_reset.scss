@@ -24,24 +24,22 @@ a:focus-visible {
   border-radius: 6px;
 }
 
-html,
-body {
+html {
   height: 100vh;
   height: 100dvh;
   width: 100vw;
+}
+
+html,
+body {
   overflow-y: auto;
   background: transparent;
 
   @media (min-width: 768px) {
-    scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
     }
   }
-}
-
-body.menu-open {
-  overflow: hidden;
 }
 
 body {
