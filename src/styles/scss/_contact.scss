@@ -1,11 +1,11 @@
 @use "variables" as *;
 
-#contact h2 {
-  font-size: clamp(2.8rem, 8vw, 4rem) !important;
-}
-
 #contact {
   padding-bottom: 0 !important;
+
+  h2 {
+    font-size: clamp(2.8rem, 8vw, 4rem) !important;
+  }
 }
 
 .contact {
