@@ -16,12 +16,15 @@
   color: $text-color;
   gap: clamp(1rem, 5vw, 5rem);
 
+  .available-tag {
+    font-weight: bold;
+  }
+
   .hero-content {
     display: flex;
     flex-direction: column;
     max-width: 350px;
-
-    p:first-child {
+    p {
       margin-bottom: 25px;
     }
   }
