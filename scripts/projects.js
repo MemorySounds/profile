@@ -4,12 +4,12 @@ const projectDetails = [
     website: "https://startinblox.com/",
     date: "2024-2025",
     brief:
-      "EU semantic web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
+      "EU-commissioned web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
     sections: [
       {
         title: "OVERVIEW",
         content: `
-          <p>With Startin’Blox, I contributed to an EU-commissioned semantic web project exploring decentralised data sharing through Dataspace Connectors. The work focused on prototyping an index-based search engine to make querying across the Dataspace faster and more efficient.</p>
+          <p>The work focused on prototyping an index-based search engine to make querying across the Dataspaces faster and more efficient.</p>
         `,
       },
       {
@@ -45,7 +45,7 @@ const projectDetails = [
     website: "https://thecomputerfirm.com/en/",
     date: "2024-2025",
     brief:
-      "Collaborated on academic publishing platforms and health sector tools, including secure journal systems and note-taking apps.",
+      "Worked on three full-stack, end-to-end projects — two academic publishing platforms and a desktop note-taking app for surgeons.",
     sections: [
       {
         title: "OVERVIEW",
@@ -97,7 +97,7 @@ const projectDetails = [
     website: "https://giveyourbest.uk/",
     date: "2023-2025",
     brief:
-      "Non-profit clothing platform enabling direct donations to refugees. Supported web platform growth and new features.",
+      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
     sections: [
       {
         title: "OVERVIEW",
@@ -229,17 +229,17 @@ const projectSummaries = [
   {
     title: "Startin’Blox",
     description:
-      "EU semantic web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
+      "EU-commissioned semantic web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
   },
   {
     title: "The Computer Firm (TCF)",
     description:
-      "Collaborated on academic publishing platforms and health sector tools, including secure journal systems and note-taking apps.",
+      "Worked on three full-stack, end-to-end projects — two academic publishing platforms and a desktop note-taking app for surgeons.",
   },
   {
     title: "Give Your Best",
     description:
-      "Non-profit clothing platform enabling direct donations to refugees. Supported web platform growth and new features.",
+      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
   },
   {
     title: "Carbon Co-op",
@@ -366,12 +366,12 @@ export function initProjects() {
       nextLink = `<span></span>`; // Empty placeholder
     }
 
+    // <p class="modal-brief">${projectDetails[idx].brief}</p>
     return `
     <div class="modal-top"> 
       <p>${projectDetails[idx].date}</p>
       <h2 class="modal-title">${projectDetails[idx].title}</h2>
-      <p class="modal-brief">${projectDetails[idx].brief}</p>
-      <a href="${projectDetails[idx].website}" id="official-link" class="official-link" target="_blank" rel="noopener noreferrer">Company Website</a>
+      <a href="${projectDetails[idx].website}" id="official-link" class="official-link" target="_blank" rel="noopener noreferrer">Organisation Website</a>
     </div>
     <div class="modal-nav-links">
       ${prevLink}
