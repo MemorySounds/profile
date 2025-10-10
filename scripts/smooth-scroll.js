@@ -83,6 +83,13 @@ export function initSmoothScroll() {
   // Click: instantly fill clicked circle, smooth scroll, ignore scrollspy during scroll
   navLinks.forEach((link, i) => {
     link.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href");
+
+      // Only handle hash links for smooth scrolling
+      if (!targetId.startsWith("#")) {
+        return; // Let non-hash links (e.g., /profile/cv/) behave normally
+      }
+
       e.preventDefault();
 
       // Close modal if open
@@ -100,7 +107,6 @@ export function initSmoothScroll() {
       this.classList.add("active");
       fillCircle(navCircleFills[i], true);
 
-      const targetId = this.getAttribute("href");
       const targetSection = document.querySelector(targetId);
       if (targetSection) {
         targetSection.scrollIntoView({ behavior: "smooth" });

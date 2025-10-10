@@ -1223,6 +1223,17 @@ body.modal-open {
   font-size: 3rem;
 }
 
+.cv-format-link {
+  border: 0.5px solid #5d3136;
+  padding: 0.5rem;
+}
+.cv-format-link:hover {
+  background: #5d3136;
+}
+.cv-format-link:hover a {
+  color: #f9ecdf;
+}
+
 footer {
   display: flex;
   flex-direction: row;
