@@ -1498,6 +1498,16 @@ footer .contact-icons a {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  padding: 0.3rem;
+}
+.cv-layout .experience .project-header:hover {
+  background-color: rgba(93, 49, 54, 0.1);
+  border-radius: 4px;
+}
+.cv-layout .experience .project-header:focus-visible {
+  outline: 2px solid #a05d5d;
+  outline-offset: 2px;
+  background: rgba(93, 49, 54, 0.08);
 }
 .cv-layout .experience .project-heading {
   margin-left: 21px;
@@ -1507,12 +1517,6 @@ footer .contact-icons a {
   transition: all 0.2s ease;
   position: relative;
 }
-.cv-layout .experience .project-heading:hover {
-  background-color: rgba(93, 49, 54, 0.1);
-  border-radius: 4px;
-  padding: 0.2rem 0.5rem;
-  margin: -0.2rem -0.5rem;
-}
 .cv-layout .experience .project-heading::before {
   content: "▸";
   position: absolute;
@@ -1521,6 +1525,10 @@ footer .contact-icons a {
   font-size: 1.2rem;
   color: #5d3136;
   transition: all 0.2s ease;
+}
+.cv-layout .experience .project-heading::before:hover {
+  background-color: rgba(93, 49, 54, 0.1);
+  border-radius: 4px;
 }
 .cv-layout .experience .project-header[aria-expanded=true] .project-heading::before {
   content: "▾";
@@ -1540,10 +1548,11 @@ footer .contact-icons a {
   border-bottom: 1px solid black;
 }
 .cv-layout .experience .project-content {
+  padding-left: 1.3rem;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.5s ease, opacity 0.5s ease;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 .cv-layout .experience .freelance-project:not(.collapsed) .project-content {
   max-height: 2000px;

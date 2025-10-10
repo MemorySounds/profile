@@ -18,11 +18,6 @@ export function initCVToggle() {
       const expanded = header.getAttribute("aria-expanded") === "true";
       header.setAttribute("aria-expanded", String(!expanded));
       project.classList.toggle("collapsed", expanded);
-
-      // Scroll simultaneously with the transition (no delay)
-      if (!expanded) {
-        header.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     };
 
     // Click handler
