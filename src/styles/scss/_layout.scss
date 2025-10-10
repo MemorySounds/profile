@@ -42,6 +42,19 @@
   align-items: center;
 }
 
+.cv-format-link {
+  border: 0.5px solid $color;
+  padding: 0.5rem;
+
+  &:hover {
+    background: $color;
+
+    a {
+      color: $text-color-light;
+    }
+  }
+}
+
 footer {
   display: flex;
   flex-direction: row;
