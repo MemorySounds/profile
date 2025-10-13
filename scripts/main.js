@@ -3,10 +3,12 @@ import { initProjects } from "./projects.js";
 import { initSmoothScroll } from "./smooth-scroll.js";
 import { initContactValidation } from "./contact-validation.js";
 import { initCVToggle } from "./cv-toggle.js";
+import { initAnimation } from "./animation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Shared across all pages
   initSmoothScroll();
+  initAnimation();
 
   // Page-specific inits
   const isCVPage =
