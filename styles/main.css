@@ -243,6 +243,20 @@ h2 {
   display: flex;
 }
 
+.top-nav .cv-format-link,
+.mobile-menu .cv-format-link {
+  border: 0.5px solid #5d3136;
+  padding: 0.5rem;
+}
+.top-nav .cv-format-link:hover,
+.mobile-menu .cv-format-link:hover {
+  background: #5d3136;
+}
+.top-nav .cv-format-link:hover a,
+.mobile-menu .cv-format-link:hover a {
+  color: #f9ecdf;
+}
+
 @media (max-width: 767px) {
   .logo-circle {
     display: none !important;
@@ -291,7 +305,7 @@ h2 {
     align-items: center;
     justify-content: center;
     background: rgba(249, 236, 223, 0.98);
-    z-index: 99;
+    z-index: 1001;
     transform: scaleY(0);
     transform-origin: top;
     visibility: hidden;
@@ -355,6 +369,9 @@ h2 {
   .mobile-menu a:hover {
     color: #222;
   }
+  .mobile-menu .cv-format-link {
+    font-size: 1rem;
+  }
   .mobile-menu ul li {
     opacity: 0;
     transform: translateY(30px);
@@ -378,6 +395,9 @@ h2 {
   }
   .mobile-menu.open ul li:nth-child(5) {
     transition-delay: 0.45s;
+  }
+  .mobile-menu.open ul li:nth-child(6) {
+    transition-delay: 0.5s;
   }
 }
 .mobile-menu .nav-circle,
@@ -855,6 +875,7 @@ h2 {
 
 body.modal-open {
   overflow: hidden;
+  position: fixed;
 }
 
 .modal-section {
@@ -1221,17 +1242,6 @@ body.modal-open {
 }
 .section-content h2 {
   font-size: 3rem;
-}
-
-.cv-format-link {
-  border: 0.5px solid #5d3136;
-  padding: 0.5rem;
-}
-.cv-format-link:hover {
-  background: #5d3136;
-}
-.cv-format-link:hover a {
-  color: #f9ecdf;
 }
 
 footer {

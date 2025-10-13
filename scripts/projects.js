@@ -255,6 +255,7 @@ const projectSummaries = [
 
 export function initProjects() {
   // Drawing SVG paths
+  window.savedScrollY = 0;
   const projectsWrapper = document.querySelector(".projects-wrapper");
   const infoBox = document.querySelector(".project-info");
   const connectorPath = document.getElementById("connector-path");
@@ -307,6 +308,7 @@ export function initProjects() {
 
       // Only open modal on mobile screens
       if (window.innerWidth <= 767) {
+        window.savedScrollY = window.scrollY;
         openModal(idx);
       }
     });
@@ -524,6 +526,10 @@ export function initProjects() {
           openModal(idx + 1);
         });
       }
+
+      if (modalRight) {
+        modalRight.scrollTop = 0; // Reset scroll to top for both mobile and desktop
+      }
     }
 
     modal.classList.add("active");
@@ -535,6 +541,7 @@ export function initProjects() {
     readMore.addEventListener("click", (e) => {
       e.preventDefault();
       const idx = parseInt(readMore.getAttribute("data-project", 10));
+      window.savedScrollY = window.scrollY;
       openModal(idx);
     });
   }
@@ -547,6 +554,7 @@ export function initProjects() {
       projectItems.forEach((el, idx) => {
         el.classList.toggle("active", idx === currentModalProjectIdx);
       });
+      window.scrollTo(0, savedScrollY); // Restore scroll position
       updateInfoBox(currentModalProjectIdx);
       drawConnector(currentModalProjectIdx, true);
       currentProjectIdx = currentModalProjectIdx;
