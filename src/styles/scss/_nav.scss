@@ -110,6 +110,22 @@
   }
 }
 
+.top-nav,
+.mobile-menu {
+  .cv-format-link {
+    border: 0.5px solid $color;
+    padding: 0.5rem;
+
+    &:hover {
+      background: $color;
+
+      a {
+        color: $text-color-light;
+      }
+    }
+  }
+}
+
 @media (max-width: 767px) {
   .logo-circle {
     display: none !important;
@@ -159,7 +175,7 @@
     align-items: center;
     justify-content: center;
     background: rgba(249, 236, 223, 0.98);
-    z-index: 99;
+    z-index: 1001;
     transform: scaleY(0);
     transform-origin: top;
     visibility: hidden;
@@ -227,6 +243,10 @@
         color: #222;
       }
     }
+
+    .cv-format-link {
+      font-size: 1rem;
+    }
   }
 
   .mobile-menu ul li {
@@ -252,6 +272,9 @@
   }
   .mobile-menu.open ul li:nth-child(5) {
     transition-delay: 0.45s;
+  }
+  .mobile-menu.open ul li:nth-child(6) {
+    transition-delay: 0.5s;
   }
 }
 

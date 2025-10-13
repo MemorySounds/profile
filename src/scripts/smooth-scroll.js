@@ -1,6 +1,19 @@
 let ignoreScroll = false;
 
 export function initSmoothScroll() {
+  // cv-like likes:
+
+  const internalLinks = document.querySelectorAll('a[href^="/profile/"]'); // Target internal links like CV
+  const isMobile = window.innerWidth <= 767;
+
+  internalLinks.forEach((link) => {
+    if (isMobile) {
+      link.removeAttribute("target");
+    } else {
+      link.setAttribute("target", "_blank");
+    }
+  });
+
   // === NAV CIRCLES & LOGO CIRCLE ===
   const logo = document.querySelector(".top-nav .logo");
   const logoCircleFill = logo?.querySelector(".circle-fill");
@@ -21,6 +34,10 @@ export function initSmoothScroll() {
   // Scrollspy: fill active link's circle
   window.addEventListener("scroll", () => {
     if (ignoreScroll) return;
+
+    // Skip scrollspy if modal is open
+    if (document.body.classList.contains("modal-open")) return;
+
     let found = false;
     document.querySelectorAll("section").forEach((section) => {
       const rect = section.getBoundingClientRect();
@@ -36,12 +53,6 @@ export function initSmoothScroll() {
           const isActive = link.getAttribute("href") === `#${section.id}`;
           link.classList.toggle("active", isActive);
           fillCircle(mobileCircleFills[i], isActive);
-
-          const modal = document.getElementById("project-modal");
-          if (modal && modal.classList.contains("active")) {
-            modal.classList.remove("active");
-            document.body.classList.remove("modal-open");
-          }
         });
         // Logo: fill only on hero
         if (logoCircleFill) fillCircle(logoCircleFill, section.id === "hero");
@@ -97,6 +108,7 @@ export function initSmoothScroll() {
       if (modal && modal.classList.contains("active")) {
         modal.classList.remove("active");
         document.body.classList.remove("modal-open");
+        window.scrollTo(0, window.savedScrollY);
       }
 
       ignoreScroll = true;
@@ -153,8 +165,26 @@ export function initSmoothScroll() {
 
     menuLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
-        e.preventDefault();
         const targetId = link.getAttribute("href");
+
+        // Only handle hash links for smooth scrolling
+        if (!targetId.startsWith("#")) {
+          // For non-hash links (e.g., /profile/cv/), close the menu and let the link open normally
+          mobileMenu.classList.remove("open");
+          hamburger.classList.remove("open");
+          document.body.classList.remove("menu-open");
+          return; // Exit without preventDefault
+        }
+
+        e.preventDefault();
+
+        const modal = document.getElementById("project-modal");
+        if (modal && modal.classList.contains("active")) {
+          modal.classList.remove("active");
+          document.body.classList.remove("modal-open");
+          window.scrollTo(0, window.savedScrollY);
+        }
+
         const targetSection = document.querySelector(targetId);
         if (targetSection) {
           let offset = 30;
@@ -166,6 +196,7 @@ export function initSmoothScroll() {
             targetSection.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: "smooth" });
         }
+
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
         document.body.classList.remove("menu-open");
