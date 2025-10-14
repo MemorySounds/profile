@@ -51,6 +51,8 @@ export function initAnimation() {
 
   document.body.appendChild(overlay);
 
+  sessionStorage.setItem("landingAnimationPlayed", "true");
+
   // Animate sequence
   const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
