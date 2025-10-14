@@ -2,15 +2,15 @@
 // Overlay shrinks to nav height, then nav content animates in
 
 export function initAnimation() {
-  //   if (sessionStorage.getItem("landingAnimationPlayed")) {
-  //     // Skip animation, show nav immediately
-  //     document.querySelector(".top-nav").style.opacity = "1";
-  //     return;
-  //   }
-  //   sessionStorage.setItem("landingAnimationPlayed", "true");
-
   document.body.style.overflow = "hidden";
   document.documentElement.style.overflow = "hidden";
+
+  if (sessionStorage.getItem("landingAnimationPlayed")) {
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    document.querySelector(".top-nav").style.opacity = "1";
+    return;
+  }
 
   const nav = document.querySelector(".top-nav");
   nav.style.opacity = "0";

@@ -8,7 +8,6 @@ import { initAnimation } from "./animation.js";
 document.addEventListener("DOMContentLoaded", () => {
   // Shared across all pages
   initSmoothScroll();
-  initAnimation();
 
   // Page-specific inits
   const isCVPage =
@@ -18,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initCVToggle();
   } else {
     // Assume other pages are for main index
+    initAnimation();
+
     initProjects();
     initContactValidation();
   }
