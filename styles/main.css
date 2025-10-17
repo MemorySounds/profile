@@ -327,10 +327,11 @@ h2 {
   }
   .mobile-menu {
     position: fixed;
-    top: 64px;
+    top: calc(64px + env(safe-area-inset-top, 0px));
     left: 0;
     width: 100vw;
-    height: calc(100vh - 64px);
+    height: calc(100vh - (64px + env(safe-area-inset-top, 0px)) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100vh - (64px + env(safe-area-inset-top, 0px)) - env(safe-area-inset-bottom, 0px));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -341,6 +342,12 @@ h2 {
     transform-origin: top;
     visibility: hidden;
     transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0s linear 0.5s;
+    /* ensure inner scrolling, smooth momentum on iOS */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    padding: 1.5rem 1rem calc(env(safe-area-inset-bottom, 0px) + 1rem);
+    overscroll-behavior-y: contain; /* prevents the page behind from scrolling */
   }
   .mobile-menu.open {
     visibility: visible;
