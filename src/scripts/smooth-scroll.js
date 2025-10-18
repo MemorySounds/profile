@@ -200,7 +200,6 @@ export function initSmoothScroll() {
 
         if (targetSection) {
           let offset = 30;
-          console.log({ targetSection });
           if (targetSection.id === "contact") {
             offset = 0;
           }
