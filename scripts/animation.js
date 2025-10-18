@@ -12,94 +12,116 @@ export function initAnimation() {
     return;
   }
 
+  // hide nav while intro runs
   const nav = document.querySelector(".top-nav");
+  if (!nav) return;
   nav.style.opacity = "0";
   nav.style.transform = "translateY(-100%)";
 
-  if (!nav) return;
-
-  // Overlay setup
+  // create the overlay (sits above the welcome)
   const overlay = document.createElement("div");
   overlay.className = "intro-overlay";
-  overlay.style.position = "fixed";
-  overlay.style.bottom = "0";
-  overlay.style.left = "0";
-  overlay.style.width = "100vw";
-  overlay.style.height = "100vh";
-  overlay.style.background = "rgba(255, 218, 181, 0.15)";
-  overlay.style.backdropFilter = "blur(8px)";
-  overlay.style.borderBottom = "0.5px solid #000";
-  overlay.style.zIndex = "2000";
-  overlay.style.display = "flex";
-  overlay.style.alignItems = "center";
-  overlay.style.justifyContent = "center";
-  overlay.style.pointerEvents = "auto";
-
+  Object.assign(overlay.style, {
+    position: "fixed",
+    inset: "0 0 0 0",
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "rgba(255,218,181,0.12)",
+    backdropFilter: "blur(8px)",
+    zIndex: "2000", // above welcome and above nav
+    pointerEvents: "auto",
+    overflow: "hidden",
+    transform: "translateY(0)", // will animate this
+  });
   const isMobile = window.innerWidth < 768;
+
+  // --- Invisible curtain approach: clip wrapper + inner element ---
+  const clip = document.createElement("div");
+  Object.assign(clip.style, {
+    overflow: "hidden", // the "invisible curtain"
+    display: "inline-block",
+    width: "88%",
+    maxWidth: isMobile ? "320px" : "820px",
+    textAlign: "center",
+  });
 
   // Centered welcome text
   const welcome = document.createElement("div");
   welcome.className = "intro-welcome-text";
   welcome.textContent = "Welcome";
-  welcome.style.fontFamily = "'Sora', Arial, sans-serif";
-  welcome.style.fontSize = isMobile ? "3.5rem" : "10rem";
-  welcome.style.letterSpacing = "2px";
-  welcome.style.color = "#5d3136";
-  welcome.style.textShadow = "0 2px 16px rgba(93,49,54,0.08)";
-  welcome.style.opacity = "0";
-  overlay.appendChild(welcome);
+  Object.assign(welcome.style, {
+    fontFamily: "'Sora', Arial, sans-serif",
+    fontSize: isMobile ? "3.5rem" : "clamp(7rem, 6vw, 10rem)",
+    letterSpacing: "2px",
+    color: "#5d3136",
+    textShadow: "0 2px 16px rgba(93,49,54,0.08)",
+    opacity: "1", // keep visible but initially translated out of view
+    display: "inline-block",
+    transformOrigin: "50% 50%",
+    willChange: "transform, opacity",
+  });
 
+  clip.appendChild(document.createElement("div")); // placeholder so overlay center doesn't collapse
+  clip.appendChild(welcome);
+  overlay.appendChild(clip);
   document.body.appendChild(overlay);
 
   sessionStorage.setItem("landingAnimationPlayed", "true");
 
+  // initial states: welcome sits just below center (will slide up into view)
+  gsap.set(welcome, { y: 100, opacity: 1 });
+
   // Animate sequence
   const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-  tl.to(welcome, {
-    opacity: 1,
-    duration: 0.8,
-    scale: 1.08,
-    delay: 0.2,
-  })
-    .to(welcome, {
-      scale: 1,
-      duration: 0.5,
-      ease: "power1.inOut",
-    })
+  tl.to(welcome, { y: 0, duration: 1.05, ease: "power3.out" })
+    // subtle accent: tiny "pop" up + settle to add character without stealing attention
     .to(
       welcome,
       {
-        opacity: 0,
-        y: 30,
-        duration: 0.5,
-        delay: 0.1,
+        scale: 1.02,
+        duration: 0.14,
+        ease: "power1.out",
+        yoyo: true,
+        repeat: 1,
       },
-      "+=0.5"
+      "+=0.04"
     )
-    // Fade in nav content
+    .to({}, { duration: 0.3 }) // readable pause
+    .addLabel("exit")
+    // animate welcome down behind the overlay
+    .to(
+      welcome,
+      {
+        y: 80, // move welcome down (bigger value = sinks more behind overlay)
+        duration: 0.7,
+        ease: "power2.in",
+      },
+      "exit"
+    )
+    // slide the overlay itself down off-screen (start almost same time)
+    .to(
+      overlay,
+      {
+        y: "100vh", // move overlay off the viewport downward
+        duration: 0.9,
+        ease: "power3.inOut",
+      },
+      "exit+=0.05"
+    )
+    // reveal nav as overlay lifts away (start a bit into overlay exit)
     .to(
       nav,
       {
         opacity: 1,
         transform: "translateY(0)",
-        duration: 1.3,
+        duration: 0.9,
         ease: "power3.inOut",
       },
-      "-=0.3"
-    )
-    // Shrink overlay to nav height
-    .to(
-      overlay,
-      {
-        height: 0,
-        duration: 1.1,
-        ease: "power3.inOut",
-        onUpdate: function () {
-          overlay.style.bottom = "0";
-        },
-      },
-      "<"
+      "exit+=0.22"
     )
     // Cleanup
     .add(() => {
@@ -107,13 +129,7 @@ export function initAnimation() {
       document.documentElement.style.overflow = "";
       nav.style.opacity = "";
       nav.style.transform = "";
-      navLinks.forEach((li) => {
-        li.style.pointerEvents = "";
-        li.style.opacity = "";
-        li.style.transform = "";
-      });
-      if (logo) logo.style.opacity = "";
-      if (navLinksWrapper) navLinksWrapper.style.opacity = "";
-      if (hamburger) hamburger.style.opacity = "";
+      if (overlay && overlay.parentNode)
+        overlay.parentNode.removeChild(overlay);
     });
 }
