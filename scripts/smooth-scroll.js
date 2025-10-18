@@ -75,7 +75,7 @@ export function initSmoothScroll() {
       ) {
         mobileMenu.classList.remove("open");
         hamburger?.classList.remove("open");
-        document.body.classList.remove("menu-open");
+        unlockBodyFromMenu();
       }
     });
   }
@@ -155,12 +155,47 @@ export function initSmoothScroll() {
   const hamburger = document.querySelector(".hamburger");
   const mobileMenu = document.querySelector(".mobile-menu");
   const menuLinks = mobileMenu?.querySelectorAll("a") || [];
+  let savedScrollY = 0;
+
+  function preventBodyTouch(e) {
+    // allow touches inside the mobile menu to scroll
+    if (!e.target.closest(".mobile-menu")) e.preventDefault();
+  }
+
+  function lockBodyForMenu() {
+    savedScrollY = window.scrollY || window.pageYOffset;
+    document.documentElement.classList.add("menu-open");
+    document.body.classList.add("menu-open");
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.addEventListener("touchmove", preventBodyTouch, {
+      passive: false,
+    });
+  }
+
+  function unlockBodyFromMenu() {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    document.removeEventListener("touchmove", preventBodyTouch, {
+      passive: false,
+    });
+    document.documentElement.classList.remove("menu-open");
+    document.body.classList.remove("menu-open");
+    window.scrollTo(0, savedScrollY);
+  }
 
   if (hamburger && mobileMenu) {
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("open");
-      mobileMenu.classList.toggle("open");
-      document.body.classList.toggle("menu-open");
+      const isOpen = mobileMenu.classList.contains("open");
+      if (isOpen) {
+        mobileMenu.classList.remove("open");
+        hamburger.classList.remove("open");
+        unlockBodyFromMenu();
+      } else {
+        mobileMenu.classList.add("open");
+        hamburger.classList.add("open");
+        lockBodyForMenu();
+      }
     });
 
     menuLinks.forEach((link) => {
@@ -172,7 +207,7 @@ export function initSmoothScroll() {
           // For non-hash links (e.g., /profile/cv/), close the menu and let the link open normally
           mobileMenu.classList.remove("open");
           hamburger.classList.remove("open");
-          document.body.classList.remove("menu-open");
+          unlockBodyFromMenu();
           return; // Exit without preventDefault
         }
 
@@ -181,11 +216,15 @@ export function initSmoothScroll() {
         const modal = document.getElementById("project-modal");
         if (modal && modal.classList.contains("active")) {
           modal.classList.remove("active");
-          document.body.classList.remove("modal-open");
+          unlockBodyFromMenu();
           window.scrollTo(0, window.savedScrollY);
         }
 
         const targetSection = document.querySelector(targetId);
+        mobileMenu.classList.remove("open");
+        hamburger.classList.remove("open");
+        unlockBodyFromMenu();
+
         if (targetSection) {
           let offset = 30;
           console.log({ targetSection });
@@ -196,18 +235,14 @@ export function initSmoothScroll() {
             targetSection.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: "smooth" });
         }
-
-        mobileMenu.classList.remove("open");
-        hamburger.classList.remove("open");
-        document.body.classList.remove("menu-open");
       });
     });
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 767) {
-        document.body.classList.remove("menu-open");
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
+        unlockBodyFromMenu();
       }
     });
   }
