@@ -917,11 +917,6 @@ h2 {
   background: #7a474e;
 }
 
-body.modal-open {
-  overflow: hidden;
-  position: fixed;
-}
-
 .modal-section {
   margin-bottom: 2.5rem;
 }

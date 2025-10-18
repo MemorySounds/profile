@@ -1,3 +1,5 @@
+import { lockScroll, unlockScroll } from "./scroll-lock.js";
+
 const projectDetails = [
   {
     title: "Startin’Blox",
@@ -534,7 +536,7 @@ export function initProjects() {
 
     modal.classList.add("active");
     trapFocus(modal);
-    document.body.classList.add("modal-open");
+    lockScroll({ useFixed: false, allowSelector: "#project-modal" });
   }
 
   if (readMore) {
@@ -549,7 +551,7 @@ export function initProjects() {
   if (modalClose) {
     modalClose.addEventListener("click", () => {
       modal.classList.remove("active");
-      document.body.classList.remove("modal-open");
+      unlockScroll();
       // Restore the project that was last viewed
       projectItems.forEach((el, idx) => {
         el.classList.toggle("active", idx === currentModalProjectIdx);
