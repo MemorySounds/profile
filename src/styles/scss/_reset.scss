@@ -53,6 +53,11 @@ body {
     content: "";
     position: fixed;
     inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height for mobile */
+    min-height: 100vh;
+    min-height: 100dvh;
     z-index: 0;
     pointer-events: none;
     opacity: 0.8;
