@@ -9,6 +9,9 @@ module.exports = function (eleventyConfig) {
   // Copy favicon files
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 
+  // Copy CNAME file to output (IMPORTANT for custom domain)
+  eleventyConfig.addPassthroughCopy({ CNAME: "CNAME" });
+
   return {
     dir: {
       input: "src",
