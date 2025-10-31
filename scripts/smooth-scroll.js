@@ -109,6 +109,7 @@ export function initSmoothScroll() {
       if (modal && modal.classList.contains("active")) {
         modal.classList.remove("active");
         document.body.classList.remove("modal-open");
+        unlockScroll();
         window.scrollTo(0, window.savedScrollY);
       }
 
