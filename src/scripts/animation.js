@@ -71,6 +71,20 @@ export function initAnimation() {
 
   sessionStorage.setItem("landingAnimationPlayed", "true");
 
+  // Create cleanup function
+  function cleanupOverlay() {
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    nav.style.opacity = "";
+    nav.style.transform = "";
+    // More aggressive removal
+    if (overlay && overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+    // Fallback: remove all overlays by class
+    document.querySelectorAll(".intro-overlay").forEach((el) => el.remove());
+  }
+
   // initial states: welcome sits just below center (will slide up into view)
   gsap.set(welcome, { y: 100, opacity: 1 });
 
@@ -124,12 +138,7 @@ export function initAnimation() {
       "exit+=0.22"
     )
     // Cleanup
-    .add(() => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      nav.style.opacity = "";
-      nav.style.transform = "";
-      if (overlay && overlay.parentNode)
-        overlay.parentNode.removeChild(overlay);
-    });
+    .add(cleanupOverlay);
+
+  setTimeout(cleanupOverlay, 4000);
 }
