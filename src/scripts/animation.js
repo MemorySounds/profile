@@ -69,8 +69,6 @@ export function initAnimation() {
   overlay.appendChild(clip);
   document.body.appendChild(overlay);
 
-  sessionStorage.setItem("landingAnimationPlayed", "true");
-
   // Create cleanup function
   function cleanupOverlay() {
     document.body.style.overflow = "";
@@ -83,6 +81,8 @@ export function initAnimation() {
     }
     // Fallback: remove all overlays by class
     document.querySelectorAll(".intro-overlay").forEach((el) => el.remove());
+    // mark animation as completed only after cleanup to avoid a stuck overlay
+    sessionStorage.setItem("landingAnimationPlayed", "true");
   }
 
   // initial states: welcome sits just below center (will slide up into view)
@@ -102,7 +102,7 @@ export function initAnimation() {
         yoyo: true,
         repeat: 1,
       },
-      "+=0.04"
+      "+=0.04",
     )
     .to({}, { duration: 0.3 }) // readable pause
     .addLabel("exit")
@@ -114,7 +114,7 @@ export function initAnimation() {
         duration: 0.7,
         ease: "power2.in",
       },
-      "exit"
+      "exit",
     )
     // slide the overlay itself down off-screen (start almost same time)
     .to(
@@ -124,7 +124,7 @@ export function initAnimation() {
         duration: 0.9,
         ease: "power3.inOut",
       },
-      "exit+=0.05"
+      "exit+=0.05",
     )
     // reveal nav as overlay lifts away (start a bit into overlay exit)
     .to(
@@ -135,7 +135,7 @@ export function initAnimation() {
         duration: 0.9,
         ease: "power3.inOut",
       },
-      "exit+=0.22"
+      "exit+=0.22",
     )
     // Cleanup
     .add(cleanupOverlay);
