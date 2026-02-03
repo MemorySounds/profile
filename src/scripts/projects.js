@@ -4,22 +4,22 @@ const projectDetails = [
   {
     title: "Startin’Blox",
     website: "https://startinblox.com/",
-    date: "2024-2025",
+    date: "2024-2026",
     brief:
-      "EU-commissioned web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
+      "Across multiple engagements, I've worked with Startin'Blox on EU-commissioned semantic web initiatives focused on decentralised data sharing in the context of <a href='https://www.sciencedirect.com/science/article/pii/S2352340925003075#:~:text=%E2%80%9CData%20spaces%20are%20decentralised%20data,storage%20and%20meta%2Ddata%20sharing.' target='_blank' rel='noopener noreferrer'>Dataspaces</a>",
     sections: [
       {
         title: "OVERVIEW",
         content: `
-          <p>The work focused on prototyping an index-based search engine to make querying across the Dataspaces faster and more efficient.</p>
+          <p>I have worked with Startin'Blox on multiple EU-commissioned semantic web initiatives focused on decentralised data sharing in the context of dataspaces. Utilising the Eclipse Dataspace Components (EDC), namely the <a href='https://github.com/eclipse-edc/Connector' class='hover-link' target='_blank' rel='noopener noreferrer'>EDC connector</a>.</p>
         `,
       },
       {
         title: "MY ROLE",
         content: `
           <ul>
-            <li>Explored and applied the EDC Connector within the broader solution.</li>
-            <li>Set up and ran test VMs to deploy and validate connectors.</li>
+            <li>Researched and applied the EDC Connector within the broader solutions.</li>
+            <li>Configured, extended, and tested EDC connectors across multiple use-cases, including a prototype cross-dataspace search engine.</li>
             <li>Collaborated with Startin’Blox and partners on technical design decisions.</li>
             <li>Produced architecture documentation and technical notes for the team.</li>
           </ul>
@@ -38,6 +38,8 @@ const projectDetails = [
           "Docker",
           "Kubernetes",
           "Open-Source",
+          "Nginx",
+          "Distributed Systems",
         ],
       },
     ],
@@ -231,7 +233,7 @@ const projectSummaries = [
   {
     title: "Startin’Blox",
     description:
-      "EU-commissioned semantic web project focused on decentralised data sharing and fast, index-based search across dataspaces.",
+      "Multiple EU-commissioned semantic web projects focused on decentralised data sharing across dataspaces.",
   },
   {
     title: "The Computer Firm (TCF)",
@@ -393,7 +395,7 @@ export function initProjects() {
       '[tabindex]:not([tabindex="-1"])',
     ];
     const focusableElements = modal.querySelectorAll(
-      focusableSelectors.join(",")
+      focusableSelectors.join(","),
     );
     if (focusableElements.length === 0) return;
 
