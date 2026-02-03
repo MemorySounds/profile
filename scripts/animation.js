@@ -31,6 +31,7 @@ export function initAnimation() {
     justifyContent: "center",
     background: "rgba(255,218,181,0.12)",
     backdropFilter: "blur(8px)",
+    webkitBackdropFilter: "blur(8px)",
     zIndex: "2000", // above welcome and above nav
     pointerEvents: "auto",
     overflow: "hidden",
@@ -69,18 +70,99 @@ export function initAnimation() {
   overlay.appendChild(clip);
   document.body.appendChild(overlay);
 
+  // Multilingual welcome words for slot-machine shuffle (last entry is final landing word)
+  const welcomeWords = [
+    "欢迎", // Chinese (Simplified)
+    "Bienvenido", // Spanish
+    "स्वागत है", // Hindi
+    "مرحبا", // Arabic
+    "স্বাগতম", // Bengali
+    "Bem-vindo", // Portuguese
+    "Bienvenue", // French
+    "Karibu", // Swahili
+    "Tervetuloa", // Finnish
+    "Sveiki", // Lithuanian
+    "Բարի\u00A0գալուստ", // Armenian
+    "Welcome", // English - final
+  ];
+
+  // Slot-like shuffle: cycles through words quickly, then slows and lands on final word
+  function slotShuffle(words, el, onComplete) {
+    console.log("slotShuffle start", words);
+    const steps = [40, 40, 50, 60, 70, 90, 110, 140, 180, 240]; // ms delays to simulate slowing
+    let step = 0;
+    let idx = 0;
+
+    function tick() {
+      if (step >= steps.length) {
+        // ensure final word (English) is shown
+        el.textContent = words[words.length - 1];
+        gsap.fromTo(
+          el,
+          { y: 10, opacity: 0.85 },
+          { y: 0, opacity: 1, duration: 0.18, ease: "power2.out" },
+        );
+        if (typeof onComplete === "function") onComplete();
+        return;
+      }
+
+      // pick next word (avoid landing on final until the end)
+      idx = (idx + 1) % (words.length - 1);
+      el.textContent = words[idx];
+
+      // tiny pop per tick for slot feel
+      gsap.fromTo(
+        el,
+        { y: 8, opacity: 0.85 },
+        { y: 0, opacity: 1, duration: 0.12, ease: "power2.out" },
+      );
+
+      const delay = steps[step];
+      step += 1;
+      setTimeout(tick, delay);
+    }
+
+    tick();
+  }
+
   // Create cleanup function
   function cleanupOverlay() {
     document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
     nav.style.opacity = "";
     nav.style.transform = "";
-    // More aggressive removal
-    if (overlay && overlay.parentNode) {
-      overlay.parentNode.removeChild(overlay);
+    // Defensive cleanup to avoid iOS/WebKit rendering artifacts
+    try {
+      if (overlay) {
+        // disable filters/background first to avoid lingering composited layers
+        overlay.style.backdropFilter = "none";
+        overlay.style.webkitBackdropFilter = "none";
+        overlay.style.background = "transparent";
+        overlay.style.pointerEvents = "none";
+        overlay.style.zIndex = "-1";
+
+        // force a synchronous reflow/repaint before removing
+        // eslint-disable-next-line no-unused-expressions
+        overlay.offsetHeight;
+
+        // hide immediately to reduce chance of visual artifact
+        overlay.style.display = "none";
+      }
+
+      // remove from DOM on next frame to let the browser finish compositing
+      requestAnimationFrame(() => {
+        if (overlay && overlay.parentNode)
+          overlay.parentNode.removeChild(overlay);
+        document
+          .querySelectorAll(".intro-overlay")
+          .forEach((el) => el.remove());
+      });
+    } catch (e) {
+      if (overlay && overlay.parentNode)
+        overlay.parentNode.removeChild(overlay);
+      document.querySelectorAll(".intro-overlay").forEach((el) => el.remove());
     }
-    // Fallback: remove all overlays by class
-    document.querySelectorAll(".intro-overlay").forEach((el) => el.remove());
+
     // mark animation as completed only after cleanup to avoid a stuck overlay
     sessionStorage.setItem("landingAnimationPlayed", "true");
   }
@@ -91,7 +173,10 @@ export function initAnimation() {
   // Animate sequence
   const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-  tl.to(welcome, { y: 0, duration: 1.05, ease: "power3.out" })
+  // kick off the slot-style shuffle as the timeline begins
+  tl.add(() => slotShuffle(welcomeWords, welcome), 0);
+
+  tl.to(welcome, { y: 0, duration: 2.05, ease: "power3.out" })
     // subtle accent: tiny "pop" up + settle to add character without stealing attention
     .to(
       welcome,

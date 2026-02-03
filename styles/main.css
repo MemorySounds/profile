@@ -64,7 +64,7 @@ body::before {
 
 .intro-overlay::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
@@ -108,14 +108,15 @@ h2 {
   transition: background 0.2s;
 }
 
-.hover-link {
+.hover-link, .hover-link-dark {
   color: #a05d5d;
   text-decoration: none;
   position: relative;
   display: inline-block;
   line-height: 1.2rem;
+  font-size: 1rem;
 }
-.hover-link::after {
+.hover-link::after, .hover-link-dark::after {
   content: "";
   display: block;
   position: absolute;
@@ -128,8 +129,12 @@ h2 {
   transition: transform 0.3s ease-in-out;
   transform-origin: left;
 }
-.hover-link:hover::after, .hover-link:focus::after {
+.hover-link:hover::after, .hover-link-dark:hover::after, .hover-link:focus::after, .hover-link-dark:focus::after {
   transform: scaleX(1);
+}
+
+.hover-link-dark {
+  color: #5d3136;
 }
 
 .site-footer {
@@ -625,15 +630,15 @@ h2 {
   margin-bottom: 3rem;
 }
 
-.link, .modal-section-content a {
+.link, .modal-section-content.project-link {
   position: relative;
   color: #5d3136;
   gap: 0.4em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: letter-spacing 0.3s cubic-bezier(0.4, 1.7, 0.7, 1);
 }
-.link::after, .modal-section-content a::after {
+.link::after, .modal-section-content.project-link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -646,7 +651,7 @@ h2 {
   transition: transform 0.3s ease-in-out;
   opacity: 0.8;
 }
-.link:hover::after, .modal-section-content a:hover::after {
+.link:hover::after, .modal-section-content.project-link:hover::after {
   transform: scaleX(1);
 }
 
@@ -1670,12 +1675,6 @@ footer .contact-icons a {
   font-style: italic;
   font-size: 0.9rem;
   color: black;
-}
-.cv-layout .education .education-item .hover-link {
-  font-size: 1.4rem;
-  line-height: 1.4rem;
-  font-weight: 500;
-  color: #5d3136;
 }
 .cv-layout .education .education-item p {
   margin: 0.2rem 0;
