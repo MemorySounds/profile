@@ -5,8 +5,6 @@ const projectDetails = [
     title: "Startin’Blox",
     website: "https://startinblox.com/",
     date: "2024-2026",
-    brief:
-      "Across multiple engagements, I've worked with Startin'Blox on EU-commissioned semantic web initiatives focused on decentralised data sharing in the context of <a href='https://www.sciencedirect.com/science/article/pii/S2352340925003075#:~:text=%E2%80%9CData%20spaces%20are%20decentralised%20data,storage%20and%20meta%2Ddata%20sharing.' target='_blank' rel='noopener noreferrer'>Dataspaces</a>",
     sections: [
       {
         title: "OVERVIEW",
@@ -48,8 +46,6 @@ const projectDetails = [
     title: "The Computer Firm (TCF)",
     website: "https://thecomputerfirm.com/en/",
     date: "2024-2025",
-    brief:
-      "Worked on three full-stack, end-to-end projects — two academic publishing platforms and a desktop note-taking app for surgeons.",
     sections: [
       {
         title: "OVERVIEW",
@@ -100,8 +96,6 @@ const projectDetails = [
     title: "Give Your Best",
     website: "https://giveyourbest.uk/",
     date: "2023-2025",
-    brief:
-      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
     sections: [
       {
         title: "OVERVIEW",
@@ -141,8 +135,6 @@ const projectDetails = [
     title: "Carbon Co-op",
     website: "https://carbon.coop/",
     date: "2023",
-    brief:
-      "Built a Home Assistant integration to connect internal energy data APIs for a UK-based carbon reduction co-operative.",
     sections: [
       {
         title: "OVERVIEW",
@@ -171,8 +163,6 @@ const projectDetails = [
     title: "Answer Digital",
     website: "https://answerdigital.com/",
     date: "2019-2022",
-    brief:
-      "Consultant developer for health sector projects, including NHS data systems and mentoring junior developers in modern Java/Spring.",
     sections: [
       {
         title: "OVERVIEW",
@@ -372,7 +362,6 @@ export function initProjects() {
       nextLink = `<span></span>`; // Empty placeholder
     }
 
-    // <p class="modal-brief">${projectDetails[idx].brief}</p>
     return `
     <div class="modal-top"> 
       <p>${projectDetails[idx].date}</p>
@@ -437,7 +426,6 @@ export function initProjects() {
           <a href="${
             details.website
           }" class="official-link link" target="_blank" rel="noopener noreferrer">Company Website</a>
-          <p class="modal-brief">${details.brief}</p>
         </div>
         ${details.sections.map((section) => ModalSection(section)).join("")}
         <div class="modal-footer">
