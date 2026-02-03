@@ -23,7 +23,7 @@
   position: relative;
   color: $color;
   gap: 0.4em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: letter-spacing 0.3s cubic-bezier(0.4, 1.7, 0.7, 1);
 
@@ -46,7 +46,7 @@
   }
 }
 
-.modal-section-content a {
+.modal-section-content.project-link {
   @extend .link;
 }
 
@@ -223,7 +223,8 @@
   opacity: 0;
   pointer-events: none;
   transform: translateX(-100vw);
-  transition: opacity 0.4s cubic-bezier(0.4, 1.7, 0.7, 1),
+  transition:
+    opacity 0.4s cubic-bezier(0.4, 1.7, 0.7, 1),
     transform 0.6s cubic-bezier(0.4, 1.7, 0.7, 1);
 
   // Noise effect on the body
@@ -340,11 +341,6 @@
   // Firefox
   // scrollbar-width: thin;
   scrollbar-color: #5d3136 transparent;
-}
-
-body.modal-open {
-  // overflow: hidden;
-  // position: fixed;
 }
 
 .modal-section {

@@ -182,7 +182,9 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
+      transition:
+        max-height 0.3s ease,
+        opacity 0.3s ease;
     }
 
     .freelance-project:not(.collapsed) .project-content {
@@ -245,13 +247,6 @@
         font-style: italic;
         font-size: 0.9rem;
         color: black;
-      }
-
-      .hover-link {
-        font-size: 1.4rem;
-        line-height: 1.4rem;
-        font-weight: 500;
-        color: $color;
       }
 
       p {
