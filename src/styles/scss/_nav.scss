@@ -17,8 +17,16 @@
   left: 0;
   width: 100vw;
   height: 64px;
-  background: $nav-background;
-  backdrop-filter: blur(5px);
+  // Fallback background for browsers without backdrop-filter support
+  background: $nav-background-color;
+
+  // Modern browsers with backdrop-filter support
+  @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
+    background: $nav-background;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,6 +45,8 @@
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
     background-repeat: repeat;
     background-size: 400px 400px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   > * {
@@ -108,7 +118,9 @@
     font-weight: 400;
     letter-spacing: 1px;
     text-decoration: none;
-    transition: color 0.2s, font-weight 0.2s;
+    transition:
+      color 0.2s,
+      font-weight 0.2s;
     position: relative;
     background: none;
     border: none;
@@ -189,12 +201,18 @@
     left: 0;
     width: 100vw;
     height: calc(
-      100vh - (64px + env(safe-area-inset-top, 0px)) -
-        env(safe-area-inset-bottom, 0px)
+      100vh -
+        (64px + env(safe-area-inset-top, 0px)) - env(
+          safe-area-inset-bottom,
+          0px
+        )
     );
     max-height: calc(
-      100vh - (64px + env(safe-area-inset-top, 0px)) -
-        env(safe-area-inset-bottom, 0px)
+      100vh -
+        (64px + env(safe-area-inset-top, 0px)) - env(
+          safe-area-inset-bottom,
+          0px
+        )
     );
     display: flex;
     flex-direction: column;
@@ -205,7 +223,8 @@
     transform: scaleY(0);
     transform-origin: top;
     visibility: hidden;
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+    transition:
+      transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
       visibility 0s linear 0.5s;
 
     /* ensure inner scrolling, smooth momentum on iOS */
@@ -218,13 +237,15 @@
     &.open {
       visibility: visible;
       transform: scaleY(1);
-      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0s;
+      transition:
+        transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+        visibility 0s;
     }
 
     // Noise effect on the body
     &::before {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;
@@ -233,6 +254,8 @@
       background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)'/></svg>");
       background-repeat: repeat;
       background-size: 400px 400px;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     .close-menu {
@@ -294,7 +317,9 @@
   .mobile-menu ul li {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.4s, transform 0.4s;
+    transition:
+      opacity 0.4s,
+      transform 0.4s;
   }
   .mobile-menu.open ul li {
     opacity: 1;
