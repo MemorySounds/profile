@@ -15,7 +15,9 @@
         type="email"
         id="email"
         name="email"
-        oninvalid="this.setCustomValidity('Please enter a valid email address.')"
+        oninvalid="
+          this.setCustomValidity('Please enter a valid email address.')
+        "
         oninput="this.setCustomValidity('')"
         required
       />

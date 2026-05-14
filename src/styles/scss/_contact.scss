@@ -153,13 +153,28 @@
     .contact-icon {
       font-size: 1.6rem;
       color: $color;
-      transition: color 0.2s;
+      transition:
+        color 0.2s,
+        font-size 0.2s;
       text-decoration: none;
 
       &:hover {
         color: #5d3136;
       }
     }
+  }
+}
+
+.contact-icon {
+  font-size: 1.6rem;
+  color: $color;
+  transition:
+    color 0.2s,
+    font-size 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    color: $nav-link-hover-color;
   }
 }
 
