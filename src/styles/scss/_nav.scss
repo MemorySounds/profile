@@ -19,6 +19,12 @@
   height: 64px;
   // Fallback background for browsers without backdrop-filter support
   background: $nav-background-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  border-bottom: 0.5px solid black;
 
   // Modern browsers with backdrop-filter support
   @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
@@ -26,13 +32,6 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
   }
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  z-index: 1000;
-  border-bottom: 0.5px solid black;
 
   &::before {
     content: "";
