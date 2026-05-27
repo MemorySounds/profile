@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "sass src/styles/scss/main.scss src/styles/css/main.css && eleventy",
-    "watch": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css & eleventy --watch"
+    "watch": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css & eleventy --watch",
+    "dev": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css & eleventy --serve --watch"
   },
   "author": "Robert Sahakyan",
   "license": "MIT",
