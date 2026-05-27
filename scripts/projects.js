@@ -231,6 +231,11 @@ const projectDetails = [
 ];
 const projectSummaries = [
   {
+    title: "Give Your Best",
+    description:
+      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
+  },
+  {
     title: "Startin’Blox",
     description:
       "Multiple EU-commissioned semantic web projects focused on decentralised data sharing across dataspaces.",
@@ -239,11 +244,6 @@ const projectSummaries = [
     title: "The Computer Firm (TCF)",
     description:
       "Worked on three full-stack, end-to-end projects — two academic publishing platforms and a desktop note-taking app for surgeons.",
-  },
-  {
-    title: "Give Your Best",
-    description:
-      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
   },
   {
     title: "Carbon Co-op",
