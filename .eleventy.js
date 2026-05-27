@@ -12,6 +12,10 @@ module.exports = function (eleventyConfig) {
   // Copy CNAME file to output (IMPORTANT for custom domain)
   eleventyConfig.addPassthroughCopy({ CNAME: "CNAME" });
 
+  // Serve passthrough files directly from source in dev (no copy step — instant CSS updates)
+  eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
+  eleventyConfig.addWatchTarget("src/styles/css/");
+
   return {
     dir: {
       input: "src",
