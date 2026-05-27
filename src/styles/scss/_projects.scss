@@ -177,7 +177,7 @@
 
 .tcf-links {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 2rem;
   margin-top: 1.5rem;
 }
@@ -445,8 +445,16 @@
 
 @media (max-width: 767px) {
   .modal-section-content {
-    padding-left: 1.5rem;
+    // text-align: justify;
+    // padding-left: 1.5rem;
     padding-top: 0.5rem;
+    gap: 1rem;
+
+    p {
+      padding-bottom: 0.5rem;
+      text-align: justify;
+      hyphens: auto;
+    }
   }
 
   .section-header {
@@ -548,6 +556,10 @@
 
   .project-info {
     display: none !important;
+  }
+
+  .project-link {
+    font-size: 0.75rem;
   }
 
   .projects-heading {
