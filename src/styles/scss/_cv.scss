@@ -118,8 +118,9 @@
 
       // Hover state
       &:hover {
-        background-color: rgba(93, 49, 54, 0.1);
-        border-radius: 4px;
+        .project-heading {
+          transform: translateX(6px);
+        }
       }
 
       &:focus-visible {
