@@ -786,7 +786,7 @@ h2 {
 
 .tcf-links {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 2rem;
   margin-top: 1.5rem;
 }
@@ -1027,8 +1027,13 @@ h2 {
 
 @media (max-width: 767px) {
   .modal-section-content {
-    padding-left: 1.5rem;
     padding-top: 0.5rem;
+    gap: 1rem;
+  }
+  .modal-section-content p {
+    padding-bottom: 0.5rem;
+    text-align: justify;
+    hyphens: auto;
   }
   .section-header {
     margin-top: 2rem;
@@ -1116,6 +1121,9 @@ h2 {
   }
   .project-info {
     display: none !important;
+  }
+  .project-link {
+    font-size: 0.75rem;
   }
   .projects-heading {
     margin-left: 0;
@@ -1590,9 +1598,8 @@ footer .contact-icons a {
   cursor: pointer;
   padding: 0.3rem;
 }
-.cv-layout .experience .project-header:hover {
-  background-color: rgba(93, 49, 54, 0.1);
-  border-radius: 4px;
+.cv-layout .experience .project-header:hover .project-heading {
+  transform: translateX(6px);
 }
 .cv-layout .experience .project-header:focus-visible {
   outline: 2px solid #a05d5d;
@@ -1718,6 +1725,19 @@ footer .contact-icons a {
   .cv-layout .contact {
     flex-direction: column;
     align-items: center;
+  }
+  .cv-layout .experience .project-content {
+    padding-left: 0.3rem;
+  }
+  .cv-layout .experience .project-content .cv-section-content {
+    margin-left: 0;
+  }
+  .cv-layout .experience .project-content .cv-section-header {
+    margin-top: 2rem;
+  }
+  .cv-layout .experience .project-content .top-level-ul {
+    padding-left: 0.5rem;
+    margin-left: 0.5rem;
   }
   .main-skills .cv-skills-columns {
     flex-direction: column;
