@@ -2,6 +2,55 @@ import { lockScroll, unlockScroll } from "./scroll-lock.js";
 
 const projectDetails = [
   {
+    title: "Give Your Best",
+    website: "https://giveyourbest.uk/",
+    date: "2023-2025",
+    sections: [
+      {
+        title: "OVERVIEW",
+        content: `<p>Give Your Best is a charity that enables people to donate clothes directly to refugees via their online webshop platform. I initially had joined their team to support and expand their web platform, but over the past few years have worked on various features, maintenance, and support, both in a paid-freelance and a volunteer capacity.</p>   <div class="tcf-links">
+          <a href="https://shop.giveyourbest.uk/" class="project-link" target="_blank" rel="noopener noreferrer">GYB</a>
+        </div>`,
+      },
+      {
+        title: "MY ROLE",
+        content: `
+          <ul>
+            <li>Added new features to improve donor and recipient experience.</li>
+            <li>Fixed bugs, improved security, and added reporting tools.</li>
+            <li>Contributed frontend changes and backend API updates.</li>
+          </ul>
+        `,
+      },
+      {
+        title: "OUTCOMES",
+        content: `<p>Helped strengthen the platform during a period of growth, starting as a contractor and later contributing as a volunteer developer.</p>`,
+      },
+      {
+        title: "EXAMPLE FEATURE",
+        content: `
+          <p>A key piece of work involved refactoring the platform to support multiple shopping sections (Women, Men, Children) in a consistent and scalable way, without duplicating logic across sections.</p>
+          <p>The platform had evolved organically over time, leading to inconsistent navigation structures, category rules, and legacy data behaviours that needed to be unified without breaking existing functionality.</p>
+          <p>I introduced a configuration-driven architecture that centralised section-specific behaviour — routing, navigation, breadcrumbs, and API filtering — into reusable logic shared across the application. This resulted in adding a Menswear section (which previously didn't exist), a more cohesive user experience, and a more maintainable codebase.</p>
+        `,
+      },
+      {
+        title: "TECH",
+        content: `<p>React · Node.js · Express · MongoDB · Heroku · Ant-Design · Sass</p>`,
+        content: [
+          "React",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Heroku",
+          "Ant-Design",
+          "Sass",
+          "CSS3",
+        ],
+      },
+    ],
+  },
+  {
     title: "Startin’Blox",
     website: "https://startinblox.com/",
     date: "2024-2026",
@@ -88,45 +137,6 @@ const projectDetails = [
           "Ant-Design",
           "CSS3",
           "On-Device AI Features",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Give Your Best",
-    website: "https://giveyourbest.uk/",
-    date: "2023-2025",
-    sections: [
-      {
-        title: "OVERVIEW",
-        content: `<p>Give Your Best is a non-profit clothing platform that enables people to donate clothes directly to refugees. I joined their team to support and expand their web platform.</p>`,
-      },
-      {
-        title: "MY ROLE",
-        content: `
-          <ul>
-            <li>Added new features to improve donor and recipient experience.</li>
-            <li>Fixed bugs, improved security, and added reporting tools.</li>
-            <li>Contributed frontend changes and backend API updates.</li>
-          </ul>
-        `,
-      },
-      {
-        title: "OUTCOMES",
-        content: `<p>Helped strengthen the platform during a period of growth, starting as a contractor and later contributing as a volunteer developer.</p>`,
-      },
-      {
-        title: "TECH",
-        content: `<p>React · Node.js · Express · MongoDB · Heroku · Ant-Design · Sass</p>`,
-        content: [
-          "React",
-          "Node.js",
-          "Express",
-          "MongoDB",
-          "Heroku",
-          "Ant-Design",
-          "Sass",
-          "CSS3",
         ],
       },
     ],
@@ -243,7 +253,7 @@ const projectSummaries = [
   {
     title: "Answer Digital",
     description:
-      "Consultant developer for health sector projects, including NHS data systems and mentoring junior developers in modern Java/Spring.",
+      "Consultant developer for health sector projects, including NHS data systems and mentoring junior developers in modern web-development.",
   },
 ];
 
