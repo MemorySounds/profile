@@ -282,6 +282,24 @@
       flex-direction: column;
       align-items: center;
     }
+    .experience .project-content {
+      padding-left: 0.3rem;
+      // text-align: justify;
+      // hyphens: auto;
+
+      .cv-section-content {
+        margin-left: 0;
+      }
+
+      .cv-section-header {
+        margin-top: 2rem;
+      }
+
+      .top-level-ul {
+        padding-left: 0.5rem;
+        margin-left: 0.5rem;
+      }
+    }
   }
   .main-skills {
     .cv-skills-columns {
