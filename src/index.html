@@ -6,8 +6,11 @@
     <script>
       (function () {
         try {
-          var params = new URLSearchParams(window.location.search);
-          if (params.get("from") === "project") {
+          const params = new URLSearchParams(window.location.search);
+          const isReturningFromProject =
+            params.get("from") === "project" ||
+            window.sessionStorage.getItem("returningFromProject") === "1";
+          if (isReturningFromProject) {
             document.documentElement.classList.add("project-returning");
           }
         } catch (_) {

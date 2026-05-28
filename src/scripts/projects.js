@@ -260,6 +260,7 @@ const projectSummaries = [
 export function initProjects() {
   // Drawing SVG paths
   const LAST_SELECTED_PROJECT_KEY = "lastSelectedProjectIdx";
+  const RETURNING_FROM_PROJECT_KEY = "returningFromProject";
   const projectsWrapper = document.querySelector(".projects-wrapper");
   const infoBox = document.querySelector(".project-info");
   const connectorPath = document.getElementById("connector-path");
@@ -313,6 +314,7 @@ export function initProjects() {
 
       // On mobile, navigate to standalone project pages.
       if (window.innerWidth <= 767) {
+        sessionStorage.setItem(RETURNING_FROM_PROJECT_KEY, "1");
         const slugs = [
           "give-your-best",
           "startinblox",
@@ -327,7 +329,9 @@ export function initProjects() {
 
   // Initial state: restore last selected project when returning from project page.
   const url = new URL(window.location.href);
-  const isReturningFromProject = url.searchParams.get("from") === "project";
+  const isReturningFromProject =
+    url.searchParams.get("from") === "project" ||
+    sessionStorage.getItem(RETURNING_FROM_PROJECT_KEY) === "1";
   const storedIdx = Number.parseInt(
     sessionStorage.getItem(LAST_SELECTED_PROJECT_KEY) || "",
     10,

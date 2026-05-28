@@ -6,8 +6,11 @@ import { initCVToggle } from "./cv-toggle.js";
 import { initAnimation } from "./animation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const RETURNING_FROM_PROJECT_KEY = "returningFromProject";
   const url = new URL(window.location.href);
-  const isReturningFromProject = url.searchParams.get("from") === "project";
+  const isReturningFromProject =
+    url.searchParams.get("from") === "project" ||
+    sessionStorage.getItem(RETURNING_FROM_PROJECT_KEY) === "1";
 
   const finalizeProjectReturn = () => {
     const selectedWorksHeading = document.getElementById("selected-works");
@@ -34,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       alignSelectedWorks();
       document.documentElement.classList.remove("project-returning");
+      sessionStorage.removeItem(RETURNING_FROM_PROJECT_KEY);
       window.history.replaceState(
         null,
         "",
@@ -44,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Safety fallback so the page is never left hidden.
     setTimeout(() => {
       document.documentElement.classList.remove("project-returning");
+      sessionStorage.removeItem(RETURNING_FROM_PROJECT_KEY);
     }, 1200);
   };
 
