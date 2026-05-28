@@ -27,3 +27,5 @@ yarn-error.log*
 .env.*.local
 
 # Compiled CSS source
+
+planning/
