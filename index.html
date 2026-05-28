@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const isReturningFromProject =
+            params.get("from") === "project" ||
+            window.sessionStorage.getItem("returningFromProject") === "1";
+          if (isReturningFromProject) {
+            document.documentElement.classList.add("project-returning");
+          }
+        } catch (_) {
+          // No-op: fallback to normal render path.
+        }
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:url" content="https://rsahakyan.dev" />
@@ -526,7 +541,7 @@
       <section id="projects">
         <div class="section-content projects" id="projects">
   <div class="content-wrapper">
-    <h2 class="projects-heading">Selected Works</h2>
+    <h2 class="projects-heading" id="selected-works">Selected Works</h2>
     <div class="projects-wrapper">
       <!-- Left info box -->
       <div class="project-info" id="project-info">
@@ -627,7 +642,7 @@
     </main>
 
     <footer>
-      <span class="footer-name">ROBERT SAHAKYAN · 2025</span>
+      <span class="footer-name">ROBERT SAHAKYAN · 2026</span>
       <div class="contact-icons">
         <a
           href="mailto:r.sahakayan1@gmail.com"
