@@ -312,9 +312,18 @@ export function initProjects() {
 
       // Only open modal on mobile screens
       if (window.innerWidth <= 767) {
-        window.savedScrollY = window.scrollY;
-        openModal(idx);
+        const slugs = [
+          "give-your-best",
+          "startinblox",
+          "the-computer-firm",
+          "carbon-coop",
+          "answer-digital",
+        ];
+        window.location.href = `/projects/${slugs[idx]}/`;
+        return;
       }
+
+      openModal(idx);
     });
   });
 
@@ -430,14 +439,16 @@ export function initProjects() {
       if (modalRight) {
         const details = projectDetails[idx];
         modalRight.innerHTML = `
-        <div class="modal-mobile-top">
-          <p class="modal-date">${details.date}</p>
-          <h2 class="modal-title">${details.title}</h2>
-          <a href="${
-            details.website
-          }" class="official-link link" target="_blank" rel="noopener noreferrer">Company Website</a>
+        <div class="modal-scroll-content">
+          <div class="modal-mobile-top">
+            <p class="modal-date">${details.date}</p>
+            <h2 class="modal-title">${details.title}</h2>
+            <a href="${
+              details.website
+            }" class="official-link link" target="_blank" rel="noopener noreferrer">Company Website</a>
+          </div>
+          ${details.sections.map((section) => ModalSection(section)).join("")}
         </div>
-        ${details.sections.map((section) => ModalSection(section)).join("")}
         <div class="modal-footer">
           ${
             idx > 0
@@ -452,8 +463,9 @@ export function initProjects() {
         </div>
       `;
 
-        // Scroll modal content to top
-        modalRight.scrollTop = 0;
+        // Scroll content area to top
+        const scrollContent = modalRight.querySelector(".modal-scroll-content");
+        if (scrollContent) scrollContent.scrollTop = 0;
 
         // Add event listeners for next/prev buttons (mobile)
         const prevBtn = modalRight.querySelector(".prev-btn");
