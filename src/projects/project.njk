@@ -3,6 +3,7 @@ pagination:
   data: projects
   size: 1
   alias: project
+  addAllPagesToCollections: false
 permalink: /projects/{{ project.slug }}/
 ---
 <!doctype html>
@@ -55,6 +56,15 @@ permalink: /projects/{{ project.slug }}/
             {% endif %}
           </div>
         {% endfor %}
+
+        <nav class="project-page-nav">
+          {% if pagination.href.previous %}
+            <a href="{{ pagination.href.previous }}" class="project-page-prev-btn">&larr; Previous</a>
+          {% endif %}
+          {% if pagination.href.next %}
+            <a href="{{ pagination.href.next }}" class="project-page-next-btn">Next &rarr;</a>
+          {% endif %}
+        </nav>
       </main>
     </div>
   </body>
