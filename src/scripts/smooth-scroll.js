@@ -4,6 +4,7 @@ export function initSmoothScroll() {
   // cv-like likes:
 
   let ignoreScroll = false;
+
   const internalLinks = document.querySelectorAll('a[href^="/profile/"]'); // Target internal links like CV
   const isMobile = window.innerWidth <= 767;
 
