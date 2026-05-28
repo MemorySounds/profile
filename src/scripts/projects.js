@@ -311,7 +311,7 @@ export function initProjects() {
       updateInfoBox(idx);
       drawConnector(idx, true);
 
-      // Only open modal on mobile screens
+      // On mobile, navigate to standalone project pages.
       if (window.innerWidth <= 767) {
         const slugs = [
           "give-your-best",
@@ -321,10 +321,7 @@ export function initProjects() {
           "answer-digital",
         ];
         window.location.href = `/projects/${slugs[idx]}/`;
-        return;
       }
-
-      openModal(idx);
     });
   });
 
