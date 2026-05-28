@@ -22,5 +22,8 @@ module.exports = function (eleventyConfig) {
       includes: "sections",
       output: "_site",
     },
+    serverOptions: {
+      host: "0.0.0.0", // listen on all interfaces so LAN devices (e.g. iPhone) can connect
+    },
   };
 };
