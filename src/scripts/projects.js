@@ -259,6 +259,7 @@ const projectSummaries = [
 
 export function initProjects() {
   // Drawing SVG paths
+  const LAST_SELECTED_PROJECT_KEY = "lastSelectedProjectIdx";
   const projectsWrapper = document.querySelector(".projects-wrapper");
   const infoBox = document.querySelector(".project-info");
   const connectorPath = document.getElementById("connector-path");
@@ -302,6 +303,7 @@ export function initProjects() {
     item.addEventListener("click", () => {
       // Remove .active from all projects
       currentProjectIdx = idx;
+      sessionStorage.setItem(LAST_SELECTED_PROJECT_KEY, String(idx));
       projectItems.forEach((el) => el.classList.remove("active"));
       // Add .active to clicked project
       item.classList.add("active");
@@ -326,11 +328,24 @@ export function initProjects() {
     });
   });
 
-  // Initial state: first project active
-  projectItems[0].classList.add("active");
-  updateInfoBox(0);
-  currentProjectIdx = 0;
-  drawConnector(0, true);
+  // Initial state: restore last selected project when returning from project page.
+  const url = new URL(window.location.href);
+  const isReturningFromProject = url.searchParams.get("from") === "project";
+  const storedIdx = Number.parseInt(
+    sessionStorage.getItem(LAST_SELECTED_PROJECT_KEY) || "",
+    10,
+  );
+  const hasValidStoredIdx =
+    Number.isInteger(storedIdx) &&
+    storedIdx >= 0 &&
+    storedIdx < projectItems.length;
+  const initialProjectIdx =
+    isReturningFromProject && hasValidStoredIdx ? storedIdx : 0;
+
+  projectItems[initialProjectIdx].classList.add("active");
+  updateInfoBox(initialProjectIdx);
+  currentProjectIdx = initialProjectIdx;
+  drawConnector(initialProjectIdx, true);
 
   // MODAL
   let currentModalProjectIdx = 0;
