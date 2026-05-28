@@ -4,6 +4,7 @@ export function initSmoothScroll() {
   // cv-like likes:
 
   let ignoreScroll = false;
+
   const internalLinks = document.querySelectorAll('a[href^="/profile/"]'); // Target internal links like CV
   const isMobile = window.innerWidth <= 767;
 
@@ -20,11 +21,11 @@ export function initSmoothScroll() {
   const logoCircleFill = logo?.querySelector(".circle-fill");
   const navLinks = document.querySelectorAll(".top-nav ul li a");
   const navCircleFills = Array.from(
-    document.querySelectorAll(".top-nav ul li .circle-fill")
+    document.querySelectorAll(".top-nav ul li .circle-fill"),
   );
   const mobileMenuLinks = document.querySelectorAll(".mobile-menu ul li a");
   const mobileCircleFills = Array.from(
-    document.querySelectorAll(".mobile-menu ul li .circle-fill")
+    document.querySelectorAll(".mobile-menu ul li .circle-fill"),
   );
 
   // Fill/unfill nav circles
@@ -84,7 +85,7 @@ export function initSmoothScroll() {
   // Hover: pre-fill hovered circle
   navLinks.forEach((link, i) => {
     link.addEventListener("mouseenter", () =>
-      fillCircle(navCircleFills[i], true)
+      fillCircle(navCircleFills[i], true),
     );
     link.addEventListener("mouseleave", () => {
       if (!link.classList.contains("active"))
@@ -110,7 +111,6 @@ export function initSmoothScroll() {
         modal.classList.remove("active");
         document.body.classList.remove("modal-open");
         unlockScroll();
-        window.scrollTo(0, window.savedScrollY);
       }
 
       ignoreScroll = true;
@@ -191,7 +191,6 @@ export function initSmoothScroll() {
         if (modal && modal.classList.contains("active")) {
           modal.classList.remove("active");
           unlockScroll();
-          window.scrollTo(0, window.savedScrollY);
         }
 
         const targetSection = document.querySelector(targetId);
@@ -233,7 +232,7 @@ export function initSmoothScroll() {
     const trackHeight = scrollbar.offsetHeight;
     const thumbHeight = Math.max(
       trackHeight * (clientHeight / scrollHeight),
-      40
+      40,
     );
 
     const maxThumbTop = trackHeight - thumbHeight;
