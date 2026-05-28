@@ -1,0 +1,61 @@
+---
+pagination:
+  data: projects
+  size: 1
+  alias: project
+permalink: /projects/{{ project.slug }}/
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ project.title }} - Robert Sahakyan</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Sora:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="project-page">
+      <header class="project-page-header">
+        <a href="/#projects" class="project-page-back">&larr; Back</a>
+      </header>
+
+      <main class="project-page-main">
+        <div class="project-page-top">
+          <p class="modal-date">{{ project.date }}</p>
+          <h1 class="modal-title">{{ project.title }}</h1>
+          <a
+            href="{{ project.website }}"
+            class="official-link link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Company Website
+          </a>
+        </div>
+
+        {% for section in project.sections %}
+          <div class="modal-section">
+            <div class="section-header">
+              <span class="section-title">{{ section.title }}</span>
+              <span class="section-line"></span>
+            </div>
+            {% if section.title == "TECH" and section.content is iterable and section.content is not string %}
+              <div class="modal-section-content tech-list">
+                {% for tech in section.content %}
+                  <span>{{ tech }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="modal-section-content">{{ section.content | safe }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </main>
+    </div>
+  </body>
+</html>
