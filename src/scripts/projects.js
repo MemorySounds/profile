@@ -259,7 +259,6 @@ const projectSummaries = [
 
 export function initProjects() {
   // Drawing SVG paths
-  window.savedScrollY = 0;
   const projectsWrapper = document.querySelector(".projects-wrapper");
   const infoBox = document.querySelector(".project-info");
   const connectorPath = document.getElementById("connector-path");
@@ -432,118 +431,40 @@ export function initProjects() {
     currentModalProjectIdx = idx;
     let modalLeft = document.querySelector(".modal-left");
     let modalRight = document.querySelector(".modal-right");
-    const isMobile = window.innerWidth <= 767;
-
-    if (isMobile) {
-      if (modalLeft) modalLeft.remove();
-      if (modalRight) {
-        const details = projectDetails[idx];
-        modalRight.innerHTML = `
-        <div class="modal-scroll-content">
-          <div class="modal-mobile-top">
-            <p class="modal-date">${details.date}</p>
-            <h2 class="modal-title">${details.title}</h2>
-            <a href="${
-              details.website
-            }" class="official-link link" target="_blank" rel="noopener noreferrer">Company Website</a>
-          </div>
-          ${details.sections.map((section) => ModalSection(section)).join("")}
-        </div>
-        <div class="modal-footer">
-          ${
-            idx > 0
-              ? `<button class="modal-nav-btn prev-btn">← Previous</button>`
-              : ""
-          }
-          ${
-            idx < projectDetails.length - 1
-              ? `<button class="modal-nav-btn next-btn">Next →</button>`
-              : ""
-          }
-        </div>
-      `;
-
-        // Scroll content area to top
-        const scrollContent = modalRight.querySelector(".modal-scroll-content");
-        if (scrollContent) scrollContent.scrollTop = 0;
-
-        // Add event listeners for next/prev buttons (mobile)
-        const prevBtn = modalRight.querySelector(".prev-btn");
-        const nextBtn = modalRight.querySelector(".next-btn");
-        if (prevBtn) {
-          prevBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            openModal(idx - 1);
-          });
-        }
-        if (nextBtn) {
-          nextBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            openModal(idx + 1);
-          });
-        }
+    if (!modalLeft) {
+      modalLeft = document.createElement("div");
+      modalLeft.className = "modal-left";
+      // Insert before modalRight
+      if (modalRight && modalRight.parentNode) {
+        modalRight.parentNode.insertBefore(modalLeft, modalRight);
       }
+    }
+    // Now update modalLeft and modalRight as usual
+    modalLeft.innerHTML = renderModalLeft(idx);
+    if (modalRight) {
+      modalRight.innerHTML = projectDetails[idx].sections
+        .map((section) => ModalSection(section))
+        .join("");
+    }
 
-      if (isMobile && modalRight) {
-        const modalFooter = modalRight.querySelector(".modal-footer");
-        const modalCloseBtn = document.getElementById("modal-close");
+    // Add event listeners for prev/next links (desktop)
+    const prevBtn = document.getElementById("prev-project");
+    const nextBtn = document.getElementById("next-project");
+    if (prevBtn) {
+      prevBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal(idx - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal(idx + 1);
+      });
+    }
 
-        function toggleControls() {
-          if (modalFooter)
-            modalFooter.classList.toggle("modal-controls-hidden");
-          if (modalCloseBtn)
-            modalCloseBtn.classList.toggle("modal-controls-hidden");
-        }
-
-        // Remove previous listeners by replacing the element
-        // Attach a new listener each time modalRight is updated
-        modalRight.onclick = function (e) {
-          const target = e.target;
-          if (
-            target.classList.contains("modal-nav-btn") ||
-            target.classList.contains("modal-close")
-          ) {
-            return;
-          }
-          toggleControls();
-        };
-      }
-    } else {
-      if (!modalLeft) {
-        modalLeft = document.createElement("div");
-        modalLeft.className = "modal-left";
-        // Insert before modalRight
-        if (modalRight && modalRight.parentNode) {
-          modalRight.parentNode.insertBefore(modalLeft, modalRight);
-        }
-      }
-      // Now update modalLeft and modalRight as usual
-      modalLeft.innerHTML = renderModalLeft(idx);
-      if (modalRight) {
-        modalRight.innerHTML = projectDetails[idx].sections
-          .map((section) => ModalSection(section))
-          .join("");
-      }
-
-      // Add event listeners for prev/next links (desktop)
-      const prevBtn = document.getElementById("prev-project");
-      const nextBtn = document.getElementById("next-project");
-      if (prevBtn) {
-        prevBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openModal(idx - 1);
-        });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openModal(idx + 1);
-        });
-      }
-
-      if (modalRight) {
-        modalRight.scrollTop = 0; // Reset scroll to top for both mobile and desktop
-      }
+    if (modalRight) {
+      modalRight.scrollTop = 0;
     }
 
     modal.classList.add("active");
@@ -555,7 +476,6 @@ export function initProjects() {
     readMore.addEventListener("click", (e) => {
       e.preventDefault();
       const idx = parseInt(readMore.getAttribute("data-project", 10));
-      window.savedScrollY = window.scrollY;
       openModal(idx);
     });
   }
@@ -568,7 +488,6 @@ export function initProjects() {
       projectItems.forEach((el, idx) => {
         el.classList.toggle("active", idx === currentModalProjectIdx);
       });
-      window.scrollTo(0, savedScrollY); // Restore scroll position
       updateInfoBox(currentModalProjectIdx);
       drawConnector(currentModalProjectIdx, true);
       currentProjectIdx = currentModalProjectIdx;
