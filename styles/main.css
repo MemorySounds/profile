@@ -48,11 +48,6 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh; /* Use dynamic viewport height for mobile */
-  min-height: 100vh;
-  min-height: 100dvh;
   z-index: 0;
   pointer-events: none;
   opacity: 0.8;
@@ -435,6 +430,8 @@ h2 {
   }
   .mobile-menu .cv-format-link {
     font-size: 1rem;
+    border-width: 1px;
+    padding: 1rem;
   }
   .mobile-menu ul li {
     opacity: 0;
@@ -820,9 +817,9 @@ h2 {
   position: fixed;
   top: 64px;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
-  height: calc(100vh - 64px);
-  height: calc(100dvh - 64px);
   background: #f9ecdf;
   z-index: 1000;
   display: none;
