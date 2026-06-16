@@ -322,7 +322,12 @@ export function initProjects() {
           "carbon-coop",
           "answer-digital",
         ];
-        window.location.href = `/projects/${slugs[idx]}/`;
+        const targetUrl = `/projects/${slugs[idx]}/`;
+        if (typeof window.navigateWithTiles === "function") {
+          window.navigateWithTiles(targetUrl);
+        } else {
+          window.location.href = targetUrl;
+        }
       }
     });
   });
