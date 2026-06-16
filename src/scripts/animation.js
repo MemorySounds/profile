@@ -1,74 +1,58 @@
-// GSAP-powered landing page intro animation using a custom overlay
-// Overlay shrinks to nav height, then nav content animates in
+// GSAP-powered landing page intro animation.
+//
+// The overlay markup lives statically in index.html (.intro-overlay) and is
+// shown instantly via CSS (html.intro-pending) so it paints on the very first
+// frame — no flash of un-animated content while GSAP/assets download. This
+// script only drives the motion and then lifts the overlay to reveal the page.
 
 export function initAnimation() {
-  document.body.style.overflow = "hidden";
-  document.documentElement.style.overflow = "hidden";
+  const html = document.documentElement;
+  const nav = document.querySelector(".top-nav");
+  const overlay = document.getElementById("intro-overlay");
+  const welcome = document.getElementById("intro-welcome");
 
-  if (sessionStorage.getItem("landingAnimationPlayed")) {
+  // Tears down the intro and leaves the page visible, usable and scrollable.
+  // Safe to call multiple times.
+  const reveal = () => {
+    html.classList.remove("intro-pending");
     document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-    document.querySelector(".top-nav").style.opacity = "1";
+    html.style.overflow = "";
+    if (overlay) {
+      // Drop filters before hiding to avoid lingering iOS/WebKit composited layers.
+      overlay.style.backdropFilter = "none";
+      overlay.style.webkitBackdropFilter = "none";
+      overlay.style.background = "transparent";
+      overlay.style.display = "none";
+    }
+    if (nav) {
+      nav.style.opacity = "1";
+      nav.style.transform = "";
+    }
+    sessionStorage.setItem("landingAnimationPlayed", "true");
+  };
+
+  // Skip the intro (and just show the page) if it already played this session,
+  // the markup is missing, or GSAP failed to load. The page is never left stuck
+  // behind the overlay.
+  if (
+    sessionStorage.getItem("landingAnimationPlayed") ||
+    !overlay ||
+    !welcome ||
+    !nav ||
+    typeof gsap === "undefined"
+  ) {
+    reveal();
     return;
   }
 
+  // Keep scroll locked while the intro plays (CSS already does this via
+  // html.intro-pending; this is belt-and-braces).
+  document.body.style.overflow = "hidden";
+  html.style.overflow = "hidden";
+
   // hide nav while intro runs
-  const nav = document.querySelector(".top-nav");
-  if (!nav) return;
   nav.style.opacity = "0";
   nav.style.transform = "translateY(-100%)";
-
-  // create the overlay (sits above the welcome)
-  const overlay = document.createElement("div");
-  overlay.className = "intro-overlay";
-  Object.assign(overlay.style, {
-    position: "fixed",
-    inset: "0 0 0 0",
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(255,218,181,0.12)",
-    backdropFilter: "blur(8px)",
-    webkitBackdropFilter: "blur(8px)",
-    zIndex: "2000", // above welcome and above nav
-    pointerEvents: "auto",
-    overflow: "hidden",
-    transform: "translateY(0)", // will animate this
-  });
-  const isMobile = window.innerWidth < 768;
-
-  // --- Invisible curtain approach: clip wrapper + inner element ---
-  const clip = document.createElement("div");
-  Object.assign(clip.style, {
-    overflow: "hidden", // the "invisible curtain"
-    display: "inline-block",
-    width: "88%",
-    maxWidth: isMobile ? "320px" : "820px",
-    textAlign: "center",
-  });
-
-  // Centered welcome text
-  const welcome = document.createElement("div");
-  welcome.className = "intro-welcome-text";
-  welcome.textContent = "Welcome";
-  Object.assign(welcome.style, {
-    fontFamily: "'Sora', Arial, sans-serif",
-    fontSize: isMobile ? "3.5rem" : "clamp(7rem, 6vw, 10rem)",
-    letterSpacing: "2px",
-    color: "#5d3136",
-    textShadow: "0 2px 16px rgba(93,49,54,0.08)",
-    opacity: "1", // keep visible but initially translated out of view
-    display: "inline-block",
-    transformOrigin: "50% 50%",
-    willChange: "transform, opacity",
-  });
-
-  clip.appendChild(document.createElement("div")); // placeholder so overlay center doesn't collapse
-  clip.appendChild(welcome);
-  overlay.appendChild(clip);
-  document.body.appendChild(overlay);
 
   // Multilingual welcome words for slot-machine shuffle (last entry is final landing word)
   const welcomeWords = [
@@ -82,13 +66,12 @@ export function initAnimation() {
     "Karibu", // Swahili
     "Tervetuloa", // Finnish
     "Sveiki", // Lithuanian
-    "Բարի\u00A0գալուստ", // Armenian
+    "Բարի գալուստ", // Armenian
     "Welcome", // English - final
   ];
 
   // Slot-like shuffle: cycles through words quickly, then slows and lands on final word
   function slotShuffle(words, el, onComplete) {
-    console.log("slotShuffle start", words);
     const steps = [40, 40, 50, 60, 70, 90, 110, 140, 180, 240]; // ms delays to simulate slowing
     let step = 0;
     let idx = 0;
@@ -125,49 +108,8 @@ export function initAnimation() {
     tick();
   }
 
-  // Create cleanup function
-  function cleanupOverlay() {
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-    nav.style.opacity = "";
-    nav.style.transform = "";
-    // Defensive cleanup to avoid iOS/WebKit rendering artifacts
-    try {
-      if (overlay) {
-        // disable filters/background first to avoid lingering composited layers
-        overlay.style.backdropFilter = "none";
-        overlay.style.webkitBackdropFilter = "none";
-        overlay.style.background = "transparent";
-        overlay.style.pointerEvents = "none";
-        overlay.style.zIndex = "-1";
-
-        // force a synchronous reflow/repaint before removing
-        // eslint-disable-next-line no-unused-expressions
-        overlay.offsetHeight;
-
-        // hide immediately to reduce chance of visual artifact
-        overlay.style.display = "none";
-      }
-
-      // remove from DOM on next frame to let the browser finish compositing
-      requestAnimationFrame(() => {
-        if (overlay && overlay.parentNode)
-          overlay.parentNode.removeChild(overlay);
-        document
-          .querySelectorAll(".intro-overlay")
-          .forEach((el) => el.remove());
-      });
-    } catch (e) {
-      if (overlay && overlay.parentNode)
-        overlay.parentNode.removeChild(overlay);
-      document.querySelectorAll(".intro-overlay").forEach((el) => el.remove());
-    }
-
-    // mark animation as completed only after cleanup to avoid a stuck overlay
-    sessionStorage.setItem("landingAnimationPlayed", "true");
-  }
-
-  // initial states: welcome sits just below center (will slide up into view)
+  // initial state: welcome sits just below center (will slide up into view).
+  // Matches the CSS start state so there's no flicker when GSAP takes over.
   gsap.set(welcome, { y: 100, opacity: 1 });
 
   // Animate sequence
@@ -192,23 +134,11 @@ export function initAnimation() {
     .to({}, { duration: 0.3 }) // readable pause
     .addLabel("exit")
     // animate welcome down behind the overlay
-    .to(
-      welcome,
-      {
-        y: 80, // move welcome down (bigger value = sinks more behind overlay)
-        duration: 0.7,
-        ease: "power2.in",
-      },
-      "exit",
-    )
+    .to(welcome, { y: 80, duration: 0.7, ease: "power2.in" }, "exit")
     // slide the overlay itself down off-screen (start almost same time)
     .to(
       overlay,
-      {
-        y: "100vh", // move overlay off the viewport downward
-        duration: 0.9,
-        ease: "power3.inOut",
-      },
+      { y: "100vh", duration: 0.9, ease: "power3.inOut" },
       "exit+=0.05",
     )
     // reveal nav as overlay lifts away (start a bit into overlay exit)
@@ -222,8 +152,8 @@ export function initAnimation() {
       },
       "exit+=0.22",
     )
-    // Cleanup
-    .add(cleanupOverlay);
+    .add(reveal);
 
-  setTimeout(cleanupOverlay, 4000);
+  // Safety net: never leave the overlay stuck if something stalls.
+  setTimeout(reveal, 5000);
 }

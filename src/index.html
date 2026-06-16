@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Speed up the first paint of fonts and the hero portrait -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/me.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
     <script>
       (function () {
         try {
@@ -10,8 +22,20 @@
           const isReturningFromProject =
             params.get("from") === "project" ||
             window.sessionStorage.getItem("returningFromProject") === "1";
+          const isTileTransitionPending =
+            window.sessionStorage.getItem("tileTransitionPending") === "1";
           if (isReturningFromProject) {
             document.documentElement.classList.add("project-returning");
+          }
+          if (isTileTransitionPending) {
+            document.documentElement.classList.add("tile-transition-pending");
+          }
+          // Show the intro overlay instantly (before JS/GSAP load) only when it
+          // should actually play — i.e. a fresh visit, not a project return.
+          const animationPlayed =
+            window.sessionStorage.getItem("landingAnimationPlayed") === "true";
+          if (!isReturningFromProject && !animationPlayed) {
+            document.documentElement.classList.add("intro-pending");
           }
         } catch (_) {
           // No-op: fallback to normal render path.
@@ -65,6 +89,23 @@
     />
   </head>
   <body class="">
+    <!-- Static intro overlay: painted on the first frame via CSS (html.intro-pending);
+         animation.js then drives the motion and lifts it to reveal the page. -->
+    <div class="intro-overlay" id="intro-overlay" aria-hidden="true">
+      <div class="intro-clip">
+        <span class="intro-welcome-text" id="intro-welcome">Welcome</span>
+      </div>
+    </div>
+
+    <!-- Static page-transition cover. Painted already-covering on the first frame
+         whenever html.tile-transition-pending is set, so an incoming page never
+         flashes blank between the exit cover and the entry reveal. -->
+    <div id="tile-transition-overlay" aria-hidden="true">
+      <div class="tile-transition-tile"></div>
+      <div class="tile-transition-tile"></div>
+      <div class="tile-transition-tile"></div>
+    </div>
+
     <nav class="top-nav">
       <a href="#hero" class="logo">
         <span class="name-tag">ROBERT SAHAKYAN</span>
@@ -391,8 +432,8 @@
       <div id="custom-scrollbar-thumb"></div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="scripts/page-transition.js"></script>
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
