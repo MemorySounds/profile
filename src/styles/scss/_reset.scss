@@ -45,6 +45,45 @@ html.project-returning body {
   visibility: hidden;
 }
 
+html.tile-transition-pending body {
+  visibility: hidden;
+}
+
+#tile-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  pointer-events: none;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.tile-transition-tile {
+  flex: 1;
+  background: #5d3136;
+  transform: translateY(100%);
+  will-change: transform;
+
+  &:nth-child(even) {
+    background: #6b3d42;
+  }
+}
+
+// When a tile transition is pending, paint the cover on the very first frame —
+// before JS/GSAP run — so the incoming page is already fully covered and never
+// flashes blank between the exit cover and the entry reveal. JS then animates
+// the reveal from this covered state (inline styles take over from here).
+html.tile-transition-pending {
+  #tile-transition-overlay {
+    display: flex;
+  }
+
+  .tile-transition-tile {
+    transform: translateY(0);
+  }
+}
+
 body {
   height: 100%;
   font-family: $font-family;

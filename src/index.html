@@ -22,8 +22,13 @@
           const isReturningFromProject =
             params.get("from") === "project" ||
             window.sessionStorage.getItem("returningFromProject") === "1";
+          const isTileTransitionPending =
+            window.sessionStorage.getItem("tileTransitionPending") === "1";
           if (isReturningFromProject) {
             document.documentElement.classList.add("project-returning");
+          }
+          if (isTileTransitionPending) {
+            document.documentElement.classList.add("tile-transition-pending");
           }
           // Show the intro overlay instantly (before JS/GSAP load) only when it
           // should actually play — i.e. a fresh visit, not a project return.
@@ -90,6 +95,15 @@
       <div class="intro-clip">
         <span class="intro-welcome-text" id="intro-welcome">Welcome</span>
       </div>
+    </div>
+
+    <!-- Static page-transition cover. Painted already-covering on the first frame
+         whenever html.tile-transition-pending is set, so an incoming page never
+         flashes blank between the exit cover and the entry reveal. -->
+    <div id="tile-transition-overlay" aria-hidden="true">
+      <div class="tile-transition-tile"></div>
+      <div class="tile-transition-tile"></div>
+      <div class="tile-transition-tile"></div>
     </div>
 
     <nav class="top-nav">
@@ -419,6 +433,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="scripts/page-transition.js"></script>
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
