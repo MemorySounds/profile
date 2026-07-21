@@ -53,7 +53,7 @@ const projectDetails = [
   {
     title: "Startin’Blox",
     website: "https://startinblox.com/",
-    date: "2024-2026",
+    date: "2024-2025",
     sections: [
       {
         title: "OVERVIEW",
