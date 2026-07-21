@@ -54,7 +54,7 @@ module.exports = [
     slug: "startinblox",
     title: "Startin'Blox",
     website: "https://startinblox.com/",
-    date: "2024-2026",
+    date: "2024-2025",
     summary:
       "Multiple EU-commissioned semantic web projects focused on decentralised data sharing across dataspaces.",
     sections: [
