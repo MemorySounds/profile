@@ -38,7 +38,7 @@
 
       <main class="project-page-main">
         <div class="project-page-top">
-          <p class="modal-date">2023-2025</p>
+          <p class="modal-date">2023-2026</p>
           <h1 class="modal-title">Give Your Best</h1>
           <a
             href="https://giveyourbest.uk/"
@@ -57,7 +57,7 @@
               <span class="section-line"></span>
             </div>
             
-              <div class="modal-section-content"><p>Give Your Best is a charity that enables people to donate clothes directly to refugees via their online webshop platform. I initially had joined their team to support and expand their web platform, but over the past few years have worked on various features, maintenance, and support, both in a paid-freelance and a volunteer capacity.</p>   <div class="tcf-links">
+              <div class="modal-section-content"><p>Give Your Best is a UK charity whose webshop lets refugees choose and order donated clothes for free. I joined as a contractor to extend the platform during a period of growth, and have kept working on it since, in paid projects and as a volunteer. The platform has handled over 60,000 donated items and supported more than 5,500 people.</p>   <div class="tcf-links">
           <a href="https://shop.giveyourbest.uk/" class="project-link" target="_blank" rel="noopener noreferrer">GYB</a>
         </div></div>
             
@@ -71,21 +71,12 @@
             
               <div class="modal-section-content">
           <ul>
-            <li>Added new features to improve donor and recipient experience.</li>
-            <li>Fixed bugs, improved security, and added reporting tools.</li>
-            <li>Contributed frontend changes and backend API updates.</li>
+            <li><strong>Bulk donations:</strong> a new data model and API so donors can list one item in many sizes and quantities, with ordering rules and stock limits.</li>
+            <li><strong>Reporting:</strong> the original report ran inside the web request and took the production server down, so I rebuilt it as a background job that generates an Excel workbook and emails it to staff, along with database indexes and some query optimisation.</li>
+            <li><strong>Automated reports:</strong> recurring CSV reports emailed to staff, such as a weekly list of London shoppers that staff used to ask developers to pull from the database.</li>
+            <li><strong>Donor privacy and safety:</strong> items from donors who aren't yet trusted go via the charity's office to be checked first, and donor emails no longer appear in API responses.</li>
           </ul>
         </div>
-            
-          </div>
-        
-          <div class="modal-section">
-            <div class="section-header">
-              <span class="section-title">OUTCOMES</span>
-              <span class="section-line"></span>
-            </div>
-            
-              <div class="modal-section-content"><p>Helped strengthen the platform during a period of growth, starting as a contractor and later contributing as a volunteer developer.</p></div>
             
           </div>
         
@@ -96,9 +87,9 @@
             </div>
             
               <div class="modal-section-content">
-          <p>A key piece of work involved refactoring the platform to support multiple shopping sections (Women, Men, Children) in a consistent and scalable way, without duplicating logic across sections.</p>
-          <p>The platform had evolved organically over time, leading to inconsistent navigation structures, category rules, and legacy data behaviours that needed to be unified without breaking existing functionality.</p>
-          <p>I introduced a configuration-driven architecture that centralised section-specific behaviour - routing, navigation, breadcrumbs, and API filtering - into reusable logic shared across the application. This resulted in adding a Menswear section (which previously didn't exist), a more cohesive user experience, and a more maintainable codebase.</p>
+          <p>The shop had grown organically and only really supported womenswear: navigation, category rules and legacy data behaviour were hard-wired. Adding Menswear meant either duplicating everything or restructuring.</p>
+          <p>I restructured it around one configuration model shared across the app, covering routing, navigation, breadcrumbs and API filtering, with one shared section component for the Womenswear, Menswear and Children's pages.</p>
+          <p>Menswear launched without duplicated code, the navigation became consistent across sections, and older items without the new data still show up.</p>
         </div>
             
           </div>
@@ -119,13 +110,15 @@
                 
                   <span>MongoDB</span>
                 
+                  <span>Mongoose</span>
+                
                   <span>Heroku</span>
                 
-                  <span>Ant-Design</span>
+                  <span>GitHub Actions</span>
+                
+                  <span>Ant Design</span>
                 
                   <span>Sass</span>
-                
-                  <span>CSS3</span>
                 
               </div>
             
