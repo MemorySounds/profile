@@ -3,13 +3,13 @@ module.exports = [
     slug: "give-your-best",
     title: "Give Your Best",
     website: "https://giveyourbest.uk/",
-    date: "2023-2025",
+    date: "2023-2026",
     summary:
-      "Supported the development of a non-profit clothing web platform enabling direct donations to refugees, delivering new features and performance improvements.",
+      "A charity webshop where refugees choose donated clothes for free. Features, reporting and upkeep, first as a contractor and later as a volunteer.",
     sections: [
       {
         title: "OVERVIEW",
-        content: `<p>Give Your Best is a charity that enables people to donate clothes directly to refugees via their online webshop platform. I initially had joined their team to support and expand their web platform, but over the past few years have worked on various features, maintenance, and support, both in a paid-freelance and a volunteer capacity.</p>   <div class="tcf-links">
+        content: `<p>Give Your Best is a UK charity whose webshop lets refugees choose and order donated clothes for free. I joined as a contractor to extend the platform during a period of growth, and have kept working on it since, in paid projects and as a volunteer. The platform has handled over 60,000 donated items and supported more than 5,500 people.</p>   <div class="tcf-links">
           <a href="https://shop.giveyourbest.uk/" class="project-link" target="_blank" rel="noopener noreferrer">GYB</a>
         </div>`,
       },
@@ -17,22 +17,19 @@ module.exports = [
         title: "MY ROLE",
         content: `
           <ul>
-            <li>Added new features to improve donor and recipient experience.</li>
-            <li>Fixed bugs, improved security, and added reporting tools.</li>
-            <li>Contributed frontend changes and backend API updates.</li>
+            <li><strong>Bulk donations:</strong> a new data model and API so donors can list one item in many sizes and quantities, with ordering rules and stock limits.</li>
+            <li><strong>Reporting:</strong> the original report ran inside the web request and took the production server down, so I rebuilt it as a background job that generates an Excel workbook and emails it to staff, along with database indexes and some query optimisation.</li>
+            <li><strong>Automated reports:</strong> recurring CSV reports emailed to staff, such as a weekly list of London shoppers that staff used to ask developers to pull from the database.</li>
+            <li><strong>Donor privacy and safety:</strong> items from donors who aren't yet trusted go via the charity's office to be checked first, and donor emails no longer appear in API responses.</li>
           </ul>
         `,
       },
       {
-        title: "OUTCOMES",
-        content: `<p>Helped strengthen the platform during a period of growth, starting as a contractor and later contributing as a volunteer developer.</p>`,
-      },
-      {
         title: "EXAMPLE FEATURE",
         content: `
-          <p>A key piece of work involved refactoring the platform to support multiple shopping sections (Women, Men, Children) in a consistent and scalable way, without duplicating logic across sections.</p>
-          <p>The platform had evolved organically over time, leading to inconsistent navigation structures, category rules, and legacy data behaviours that needed to be unified without breaking existing functionality.</p>
-          <p>I introduced a configuration-driven architecture that centralised section-specific behaviour - routing, navigation, breadcrumbs, and API filtering - into reusable logic shared across the application. This resulted in adding a Menswear section (which previously didn't exist), a more cohesive user experience, and a more maintainable codebase.</p>
+          <p>The shop had grown organically and only really supported womenswear: navigation, category rules and legacy data behaviour were hard-wired. Adding Menswear meant either duplicating everything or restructuring.</p>
+          <p>I restructured it around one configuration model shared across the app, covering routing, navigation, breadcrumbs and API filtering, with one shared section component for the Womenswear, Menswear and Children's pages.</p>
+          <p>Menswear launched without duplicated code, the navigation became consistent across sections, and older items without the new data still show up.</p>
         `,
       },
       {
@@ -42,10 +39,11 @@ module.exports = [
           "Node.js",
           "Express",
           "MongoDB",
+          "Mongoose",
           "Heroku",
-          "Ant-Design",
+          "GitHub Actions",
+          "Ant Design",
           "Sass",
-          "CSS3",
         ],
       },
     ],
@@ -56,40 +54,42 @@ module.exports = [
     website: "https://startinblox.com/",
     date: "2024-2025",
     summary:
-      "Multiple EU-commissioned semantic web projects focused on decentralised data sharing across dataspaces.",
+      "EU-funded dataspace research, part-time. I owned the connector: the component organisations run to share data without a central platform.",
     sections: [
       {
         title: "OVERVIEW",
         content: `
-          <p>I have worked with Startin'Blox on multiple EU-commissioned semantic web initiatives focused on decentralised data sharing in the context of dataspaces. Utilising the Eclipse Dataspace Components (EDC), namely the <a href='https://github.com/eclipse-edc/Connector' class='hover-link' target='_blank' rel='noopener noreferrer'>EDC connector</a>.</p>
+          <p>Startin'Blox builds dataspaces: networks where organisations share data with each other without handing it over to a central platform. I worked with them part-time on EU-funded research projects, mainly for the European Media Data Space (TEMS), where media organisations can search what others offer, such as 3D models, subtitles and fact-checks, and then negotiate access. My part was the connector, built on the open-source <a href='https://github.com/eclipse-edc/Connector' class='hover-link' target='_blank' rel='noopener noreferrer'>Eclipse Dataspace Components (EDC)</a>.</p>
         `,
       },
       {
         title: "MY ROLE",
         content: `
           <ul>
-            <li>Researched and applied the EDC Connector within the broader solutions.</li>
-            <li>Configured, extended, and tested EDC connectors across multiple use-cases, including a prototype cross-dataspace search engine.</li>
-            <li>Collaborated with Startin'Blox and partners on technical design decisions.</li>
-            <li>Produced architecture documentation and technical notes for the team.</li>
+            <li>Owned the connector side: the component each organisation runs to publish its data catalogue, prove who it is and negotiate usage contracts before any data moves.</li>
+            <li>Compared the two main open-source connectors (Eclipse EDC and FIWARE) and documented the trade-offs for the team.</li>
+            <li>Assembled our connector from EDC's Java modules with Gradle, containerised it with Docker and deployed it to Linux VMs behind Nginx.</li>
+            <li>Ran Eclipse's reference dataspace on Kubernetes (KinD, deployed with Terraform) and built a demo of catalogue requests and contract negotiation.</li>
+            <li>Wrote the team's technical documentation on connectors, the EDC control plane and the reference setup.</li>
           </ul>
         `,
       },
       {
         title: "OUTCOMES",
-        content: `<p>Contributed working proof-of-concepts that advanced EU research into index-based search within dataspaces and decentralised data exchange.</p>`,
+        content: `<p>Working proofs of concept and documentation that fed into the project's research on searching across dataspaces.</p>`,
       },
       {
         title: "TECH",
         content: [
-          "Semantic Web",
-          "EDC Connector",
           "Java",
+          "Gradle",
+          "Eclipse EDC",
           "Docker",
-          "Kubernetes",
-          "Open-Source",
           "Nginx",
-          "Distributed Systems",
+          "Linux",
+          "Kubernetes (KinD)",
+          "Terraform",
+          "JSON-LD / Semantic Web",
         ],
       },
     ],
@@ -100,22 +100,23 @@ module.exports = [
     website: "https://thecomputerfirm.com/en/",
     date: "2024-2025",
     summary:
-      "Worked on three full-stack, end-to-end projects - two academic publishing platforms and a desktop note-taking app for surgeons.",
+      "Main developer on two academic journal platforms, then the local speech features of an offline desktop app for surgeons.",
     sections: [
       {
         title: "OVERVIEW",
         content: `
-        <p>Since 2024, I've collaborated with TCF on several projects, mainly centred on academic publishing platforms and research tools in the health sector.</p>
+        <p>TCF is a small Swiss software firm. I worked with them from 2024 to 2025, mainly on academic publishing platforms and research tools in health.</p>
       `,
       },
       {
         title: "PROJECT 1",
         content: `
-        <p>Developed two end-to-end secure web applications for academic journals in the field of musculoskeletal research. Platforms launched to support academic communities in digitising journals and expanding access to research.</p>
+        <p>Main developer on two academic journal platforms in musculoskeletal research, working closely with TCF's lead developer.</p>
         <ul>
-          <li>Built full submission/review workflows, editorial tools, and issue/article management.</li>
-          <li>Developed frontend platforms for publishing and reading academic content online.</li>
-          <li>A full backend with automated PDF generation and multilingual support.</li>
+          <li>Editorial back-office: a submission and peer-review workflow with a history timeline and email notifications at each step, plus article, issue, author and user management.</li>
+          <li>Word (.docx) import that turns manuscripts into structured articles, including the reference list and links from in-text citations.</li>
+          <li>PDF generation for articles and whole issues (Puppeteer), and machine translation into six languages.</li>
+          <li>The public reading site, with search and social sharing.</li>
         </ul>
         <div class="tcf-links">
           <a href="https://thehive-musculoskeletal.com/" class="project-link" target="_blank" rel="noopener noreferrer">THE HIVE</a>
@@ -127,8 +128,8 @@ module.exports = [
         title: "PROJECT 2",
         content: `
         <p>
-          A surgeon note-taking desktop application built with Electron and React, incorporating AI-assisted note-taking features.<br>
-          <em>Further details under NDA (currently work-in-progress)</em>
+          A desktop note-taking app for surgeons (Electron and React) that runs entirely offline, for patient privacy. I built the local speech features: a small Python (FastAPI) text-to-speech service using Piper, packaged into the app, and local Whisper for dictation.<br>
+          <em>Further details under NDA.</em>
         </p>
       `,
       },
@@ -136,13 +137,15 @@ module.exports = [
         title: "TECH",
         content: [
           "React",
+          "Redux Toolkit",
           "Node.js",
           "Express",
           "MongoDB",
+          "Puppeteer",
+          "Google Cloud Storage",
           "Electron",
-          "Ant-Design",
-          "CSS3",
-          "On-Device AI Features",
+          "Python (FastAPI)",
+          "Ant Design",
         ],
       },
     ],
@@ -153,27 +156,23 @@ module.exports = [
     website: "https://carbon.coop/",
     date: "2023",
     summary:
-      "Built a Home Assistant integration to connect internal energy data APIs for a UK-based carbon reduction co-operative.",
+      "A small Home Assistant integration that polls an energy co-op's data API, so households can follow their energy use.",
     sections: [
       {
         title: "OVERVIEW",
-        content: `<p>Carbon Co-op is a UK-based co-operative helping households reduce carbon emissions. I contributed as a freelance developer, building an integration to connect their internal energy data API with the open-source Home Assistant platform.</p>`,
+        content: `<p>Carbon Co-op is a UK co-operative helping households cut their carbon emissions. In a short engagement, I built a Python integration for the open-source Home Assistant platform that polls their energy-data API at intervals, so households can monitor their energy use. It was part of a larger project with an EU consortium of energy initiatives.</p>`,
       },
       {
         title: "MY ROLE",
         content: `
           <ul>
-            <li>Designed and implemented a Home Assistant integration.</li>
+            <li>Designed and built the integration, which ran on a small home energy box that Carbon Co-op was producing.</li>
           </ul>
         `,
       },
       {
-        title: "OUTCOMES",
-        content: `<p>Delivered a practical bridge between Carbon Co-op's systems and Home Assistant as part of a larger project with an EU-consortium of energy initiatives.</p>`,
-      },
-      {
         title: "TECH",
-        content: ["Python", "Home Assistant", "Git"],
+        content: ["Python", "Home Assistant", "REST APIs", "Git"],
       },
     ],
   },
@@ -183,48 +182,47 @@ module.exports = [
     website: "https://answerdigital.com/",
     date: "2019-2022",
     summary:
-      "Consultant developer for health sector projects, including NHS data systems and mentoring junior developers in modern web-development.",
+      "Consultant developer, mainly on NHS projects: Java/Spring Boot services that help hospital trusts apply the national data opt-out.",
     sections: [
       {
         title: "OVERVIEW",
         content: `
         <p>
-          At Answer Digital (a mid-sized consultancy of ~80 people), I worked as a consultant developer for 3 years, contributing across multiple projects, mainly in the health sector. I alternated between agile teams of up to 10-15 people and working independently with external clients, including a Chinese bank and several NHS trusts in Manchester and London. Alongside project work, I was also part of the Answer Academy, where I mentored junior developers through workshops and code reviews.
+          At Answer Digital (a consultancy of about 80 people), I worked as a consultant developer for three years, mainly in the health sector, starting as a Java developer and moving towards Node.js and full-stack JavaScript. I alternated between agile teams of 10-15 people and working on my own directly with clients, including several NHS trusts in Manchester and London and a Chinese bank. I was also part of the Answer Academy, mentoring junior developers through workshops and code reviews.
         </p>
       `,
       },
       {
         title: "HIGHLIGHTED PROJECT",
         content: `
-        <p>Worked on a Microservices-based Java application to help NHS Trusts comply with national data opt-out regulations:</p>
+        <p>National data opt-out system. In England, patients can opt out of their data being used for research and planning, and hospital trusts have to remove them from datasets before sharing. The system sends NHS numbers to NHS Digital through its secure messaging service (MESH) and filters the trust's datasets with the result.</p>
         <ul>
-          <li>Developed and tested full-stack features for a national health data system.</li>
-          <li>Integrated the service into NHS infrastructure (Windows Server, MESH API).</li>
-          <li>Worked with datasets spanning hundreds of thousands of patient records, ensuring compliance with NHS data standards</li>
-          <li>Gathered requirements directly from NHS clients.</li>
-          <li>Led and mentored two junior developers.</li>
+          <li>Took over a system a senior colleague had built for one trust and adapted it for a new London hospital trust: configuration, new backend features and JUnit tests.</li>
+          <li>Deployed it on the trust's own servers: Spring Boot services running as Windows services behind an IIS reverse proxy, connected to NHS Digital's MESH API.</li>
+          <li>Worked with patient lists of hundreds of thousands of records, and with the trust's staff and IT team on requirements and rollout.</li>
+          <li>Documented the setup and onboarded two junior developers before moving on.</li>
         </ul>
       `,
       },
       {
         title: "OUTCOME",
         content: `
-        <p>
-          Successfully delivered a secure and reliable system, meeting NHS deadlines and compliance standards, enabling Trusts to comply with national opt-out regulations.
-        </p>
+        <p>Delivered on time. The trust still uses it.</p>
       `,
       },
       {
         title: "TECH",
         content: [
-          "React",
           "Java",
           "Spring Boot",
+          "JUnit",
           "SQL Server",
           "Microservices",
           "REST APIs",
+          "IIS",
+          "React",
+          "Node.js",
           "Docker",
-          "Elasticsearch",
         ],
       },
       {
