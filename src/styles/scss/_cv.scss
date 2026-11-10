@@ -31,6 +31,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    // Baseline (not the default stretch) lines the links' text up with the
+    // plain items and keeps their hover underline as close as on other links.
+    align-items: baseline;
   }
 
   .intro {
@@ -280,6 +283,12 @@
     .contact {
       flex-direction: column;
       align-items: center;
+
+      // Links use a tighter line-height than the plain items, so add the
+      // difference back to keep the stacked lines evenly spaced.
+      .hover-link {
+        margin: 0.2rem 0;
+      }
     }
     .experience .project-content {
       padding-left: 0.3rem;
