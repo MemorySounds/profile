@@ -4,6 +4,69 @@
 // shown instantly via CSS (html.intro-pending) so it paints on the very first
 // frame — no flash of un-animated content while GSAP/assets download. This
 // script only drives the motion and then lifts the overlay to reveal the page.
+//
+// The motion waits until the page underneath has settled (see whenPageSettled),
+// so nothing reflows or repaints behind the overlay mid-animation. If that takes
+// a moment, a CSS loading line shows in the meantime (.intro-loader).
+
+// Never hold the intro back longer than this waiting for the page to settle.
+const MAX_WAIT_MS = 2500;
+
+// Resolves once the things that would otherwise change under the overlay while
+// it animates (the Sora font and the hero portrait) are ready, or after
+// MAX_WAIT_MS, whichever comes first. Never rejects.
+function whenPageSettled() {
+  const tasks = [];
+  if (document.fonts && typeof document.fonts.load === "function") {
+    tasks.push(document.fonts.load("400 1em Sora"));
+    tasks.push(document.fonts.load("700 1em Sora"));
+  }
+  const portrait = document.querySelector(".hero-image-wrapper img");
+  if (portrait && typeof portrait.decode === "function") {
+    tasks.push(portrait.decode());
+  }
+  const timeout = new Promise((resolve) => setTimeout(resolve, MAX_WAIT_MS));
+  return Promise.race([Promise.allSettled(tasks), timeout]);
+}
+
+// Finishes and fades out the loading line if it had become visible, otherwise
+// just removes it. Resolves once it's gone.
+function dismissLoader() {
+  const loader = document.getElementById("intro-loader");
+  if (!loader) return Promise.resolve();
+
+  const isVisible = parseFloat(getComputedStyle(loader).opacity) > 0.05;
+  if (!isVisible || typeof loader.getAnimations !== "function") {
+    loader.remove();
+    return Promise.resolve();
+  }
+
+  // Freeze the CSS animations where they are, then let GSAP take over.
+  loader.getAnimations({ subtree: true }).forEach((animation) => {
+    try {
+      animation.commitStyles();
+    } catch (_) {
+      // Not rendered: nothing to freeze.
+    }
+    animation.cancel();
+  });
+
+  return new Promise((resolve) => {
+    gsap
+      .timeline({
+        onComplete: () => {
+          loader.remove();
+          resolve();
+        },
+      })
+      .to(loader.firstElementChild, {
+        scaleX: 1,
+        duration: 0.2,
+        ease: "power2.out",
+      })
+      .to(loader, { opacity: 0, duration: 0.25, ease: "power1.out" }, "-=0.1");
+  });
+}
 
 export function initAnimation() {
   const html = document.documentElement;
@@ -108,14 +171,15 @@ export function initAnimation() {
     tick();
   }
 
-  // initial state: welcome sits just below center (will slide up into view).
-  // Matches the CSS start state so there's no flicker when GSAP takes over.
-  gsap.set(welcome, { y: 100, opacity: 1 });
+  // initial state: welcome sits just below center, hidden until the motion
+  // starts. Matches the CSS start state so there's no flicker.
+  gsap.set(welcome, { y: 100, opacity: 0 });
 
-  // Animate sequence
-  const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+  // Animate sequence (built paused; it starts once the page has settled)
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
 
-  // kick off the slot-style shuffle as the timeline begins
+  // show the word and kick off the slot-style shuffle as the timeline begins
+  tl.set(welcome, { opacity: 1 }, 0);
   tl.add(() => slotShuffle(welcomeWords, welcome), 0);
 
   tl.to(welcome, { y: 0, duration: 2.05, ease: "power3.out" })
@@ -154,6 +218,19 @@ export function initAnimation() {
     )
     .add(reveal);
 
-  // Safety net: never leave the overlay stuck if something stalls.
-  setTimeout(reveal, 5000);
+  const introMs = tl.duration() * 1000;
+
+  // Start once the page has settled and the loading line (if it showed) has
+  // faded. The safety net is armed when the motion starts, so a slow start
+  // can't cut the intro short.
+  whenPageSettled()
+    .then(dismissLoader)
+    .catch(() => {})
+    .then(() => {
+      tl.play();
+      setTimeout(reveal, introMs + 1500);
+    });
+
+  // Last resort: never leave the overlay stuck if something above stalls.
+  setTimeout(reveal, MAX_WAIT_MS + 1000 + introMs + 1500);
 }

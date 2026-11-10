@@ -229,6 +229,7 @@ html.intro-pending body {
   color: #5d3136;
   text-shadow: 0 2px 16px rgba(93, 49, 54, 0.08);
   transform: translateY(100px);
+  opacity: 0;
   transform-origin: 50% 50%;
   will-change: transform, opacity;
 }
@@ -238,6 +239,39 @@ html.intro-pending body {
   }
 }
 
+.intro-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(160px, 40vw);
+  height: 2px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border-radius: 1px;
+  background: rgba(93, 49, 54, 0.15);
+  opacity: 0;
+  animation: intro-loader-in 0.4s ease 0.35s forwards;
+}
+.intro-loader span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #5d3136;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: intro-loader-fill 4s cubic-bezier(0.15, 0.7, 0.3, 1) 0.35s forwards;
+}
+
+@keyframes intro-loader-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes intro-loader-fill {
+  to {
+    transform: scaleX(0.9);
+  }
+}
 .hamburger,
 .mobile-menu {
   display: none;
@@ -1631,6 +1665,7 @@ footer .contact-icons a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: baseline;
 }
 .cv-layout .intro {
   display: flex;
@@ -1836,6 +1871,9 @@ footer .contact-icons a {
   .cv-layout .contact {
     flex-direction: column;
     align-items: center;
+  }
+  .cv-layout .contact .hover-link {
+    margin: 0.2rem 0;
   }
   .cv-layout .experience .project-content {
     padding-left: 0.3rem;

@@ -83,10 +83,27 @@
       href="https://fonts.googleapis.com/css?family=Sora:400,700&display=swap"
       rel="stylesheet"
     />
+    <!-- Icons only appear in the footer, so this loads without holding up the
+         first paint. -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /></noscript>
+
+    <!-- Fetch every module the page uses in parallel, instead of discovering
+         them one import at a time. The intro can't start until all of them have
+         loaded, so keep this list in sync with the imports under scripts/. -->
+    <link rel="modulepreload" href="/scripts/main.js" />
+    <link rel="modulepreload" href="/scripts/animation.js" />
+    <link rel="modulepreload" href="/scripts/projects.js" />
+    <link rel="modulepreload" href="/scripts/project-data.js" />
+    <link rel="modulepreload" href="/scripts/scroll-lock.js" />
+    <link rel="modulepreload" href="/scripts/smooth-scroll.js" />
+    <link rel="modulepreload" href="/scripts/contact-validation.js" />
+    <link rel="modulepreload" href="/scripts/cv-toggle.js" />
   </head>
   <body class="">
     <!-- Static intro overlay: painted on the first frame via CSS (html.intro-pending);
@@ -95,6 +112,8 @@
       <div class="intro-clip">
         <span class="intro-welcome-text" id="intro-welcome">Welcome</span>
       </div>
+      <!-- Fades in only if the intro is still waiting to start (slow connection). -->
+      <div class="intro-loader" id="intro-loader"><span></span></div>
     </div>
 
     <!-- Static page-transition cover. Painted already-covering on the first frame
@@ -736,7 +755,7 @@
       <div id="custom-scrollbar-thumb"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js"></script>
     <script src="scripts/page-transition.js"></script>
     <script type="module" src="scripts/main.js"></script>
   </body>
