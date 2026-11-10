@@ -53,13 +53,57 @@ html.intro-pending {
   letter-spacing: 2px;
   color: #5d3136;
   text-shadow: 0 2px 16px rgba(93, 49, 54, 0.08);
-  // Start clipped below center; GSAP slides it up into view. Matching this to
-  // the JS start state avoids a flicker before the timeline takes over.
+  // Start below center and hidden: at 100px down the top of the word still
+  // peeks out of the clip, so it stays invisible until the motion starts.
+  // Matching this to the JS start state avoids a flicker when GSAP takes over.
   transform: translateY(100px);
+  opacity: 0;
   transform-origin: 50% 50%;
   will-change: transform, opacity;
 
   @media (max-width: 767px) {
     font-size: 3.5rem;
+  }
+}
+
+// Thin loading line in the middle of the overlay. It only fades in if the intro
+// still hasn't started a moment after the overlay paints (e.g. a slow
+// connection), so fast loads never see it. It's pure CSS, so it can appear
+// before any JS has loaded; animation.js finishes it and fades it out.
+.intro-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(160px, 40vw);
+  height: 2px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border-radius: 1px;
+  background: rgba(93, 49, 54, 0.15);
+  opacity: 0;
+  animation: intro-loader-in 0.4s ease 0.35s forwards;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #5d3136;
+    transform: scaleX(0);
+    transform-origin: left center;
+    // Eases towards 90% and waits there until animation.js completes it.
+    animation: intro-loader-fill 4s cubic-bezier(0.15, 0.7, 0.3, 1) 0.35s
+      forwards;
+  }
+}
+
+@keyframes intro-loader-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-loader-fill {
+  to {
+    transform: scaleX(0.9);
   }
 }
